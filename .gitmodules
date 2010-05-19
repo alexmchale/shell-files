@@ -1,0 +1,9 @@
+[submodule "home-dotfiles/vimbundles/rails"]
+	path = home-dotfiles/vimbundles/rails
+	url = git://github.com/tpope/vim-rails.git
+[submodule "home-dotfiles/vimbundles/haml"]
+	path = home-dotfiles/vimbundles/haml
+	url = git://github.com/tpope/vim-haml.git
+[submodule "home-dotfiles/vimbundles/nerdtree"]
+	path = home-dotfiles/vimbundles/nerdtree
+	url = git://github.com/scrooloose/nerdtree.git
