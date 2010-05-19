@@ -1,4 +1,4 @@
-" call pathogen#runtime_prepend_subdirectories(expand('~/.vimbundles'))
+call pathogen#runtime_prepend_subdirectories(expand('~/.vimbundles'))
 
 set nocompatible        " enable VIM features
 set ch=1
