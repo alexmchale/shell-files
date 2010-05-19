@@ -1,7 +1,13 @@
 require "fileutils"
 
 desc "Install all files"
-task :install => [ :install_dotfiles ] do
+task :install => [ :update, :install_dotfiles ] do
+end
+
+desc "Update this project"
+task :update do
+  system("git pull origin master")
+  system("git submodule foreach git pull origin master")
 end
 
 desc "Install dotfiles"
