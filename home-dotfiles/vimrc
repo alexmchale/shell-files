@@ -1,0 +1,88 @@
+" call pathogen#runtime_prepend_subdirectories(expand('~/.vimbundles'))
+
+set nocompatible        " enable VIM features
+set ch=1
+set mousehide           " hide the mouse when typing
+set shiftwidth=2
+set softtabstop=2
+set cindent
+set expandtab
+set ruler
+set ai
+set background=dark
+set nobackup
+set nowritebackup
+set noswapfile
+set bs=2
+set cinoptions+=:0g0
+set history=50
+set gdefault
+set showmatch
+set matchpairs+=<:>
+set showmode
+set nowrap
+" set mouse-=a
+set noincsearch
+set number
+
+highlight LineNr guifg=#777777 guibg=#202020 ctermfg=grey ctermbg=darkgrey
+
+noremap <C-J> <PageDown>
+noremap <C-K> <PageUp>
+
+syn sync fromstart
+
+autocmd BufWritePre * :%s/\s\+$//e
+autocmd BufWritePre * :%s/\r//e
+
+map <S-Insert> <MiddleMouse>
+map! <S-Insert> <MiddleMouse>
+map!  <BackSpace>
+
+if has("gui_running")
+  set gfn=-schumacher-clean-bold-r-normal-*-*-160-*-*-c-*-iso646.1991-irv
+  " colorscheme elflord
+  " colorscheme vividchalk
+endif
+
+" colorscheme vividchalk
+
+if has("autocmd")
+  filetype plugin indent on
+endif
+
+syntax on
+let c_syntax_for_h = 1
+let g:netrw_ftpmode = "binary"
+let g:netrw_win95ftp = 0
+let g:asmsyntax = "nasm"
+
+map  :syn sync fromstart
+
+match ErrorMsg / \+$/
+
+" custom copy'n'paste
+vmap <C-c> :w! ~/.vbuf<CR>
+nmap <C-c> :.w! ~/.vbuf<CR>
+nmap <C-v> :r ~/.vbuf<CR>
+
+nmap <C-n> :qa!<CR>
+nmap <C-m> :n<CR>
+
+nmap <C-t> :TlistToggle<CR>
+nmap <C-y> :NERDTreeToggle<CR>
+nmap <C-u> :NERDTreeMirror<CR>
+nmap <C-i> :NERDTreeFind<CR>
+
+let Tlist_Use_Right_Window = 1
+let Tlist_Show_One_File = 1
+
+set guifont=Menlo:h15.00
+
+"if has("folding")
+"  set foldenable
+"  set foldmethod=syntax
+"  set foldlevel=1
+"  set foldnestmax=2
+"  set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ ('.(v:foldend-v:foldstart+1).'\ lines)\ '
+"endif

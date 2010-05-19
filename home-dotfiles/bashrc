@@ -1,0 +1,55 @@
+# Determine what git branch we're on.
+function parse_git_branch {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ *\1/'
+}
+
+# Move up the directory tree until we're in the root of a git project.
+function cdg {
+
+  while [ 1 ]; do
+
+    if [ "/" = "`pwd`" ]; then
+      return
+    fi
+
+    if [ -e ".git" ]; then
+      return
+    fi
+
+    cd ..
+
+  done
+
+}
+
+# Define the ANSI colors.
+       CLEAR="\[\033[00m\]"
+        BLUE="\[\033[0;34m\]"
+  LIGHT_BLUE="\[\033[1;34m\]"
+         RED="\[\033[0;31m\]"
+   LIGHT_RED="\[\033[1;31m\]"
+       GREEN="\[\033[0;32m\]"
+ LIGHT_GREEN="\[\033[1;32m\]"
+       WHITE="\[\033[1;37m\]"
+  LIGHT_GRAY="\[\033[0;37m\]"
+
+# Set the prompts.
+export PS1="$BLUE[$LIGHT_BLUE\u@\h $LIGHT_GREEN\w$LIGHT_BLUE\$(parse_git_branch)$BLUE]$LIGHT_BLUE\$ $CLEAR"
+export PS2="> "
+export PS4="+ "
+
+alias ls='ls --color=auto'
+alias gems='sudo gem search --remote'
+alias gemi='sudo gem install --no-ri --no-rdoc --remote'
+alias gs='git status'
+alias gls="git log --pretty=oneline"
+alias gd="git diff"
+alias gds="git diff --staged"
+alias resume='screen -D -RR'
+alias apts='sudo apt-cache search'
+alias apti='sudo apt-get install'
+alias tt='tt++ ~/.tintinrc'
+
+export PATH="/usr/local/redis:/opt/java/bin:/opt/maven/bin:$PATH:$HOME/bin"
+export EDITOR="vim"
+export JAVA_HOME="/opt/java"
