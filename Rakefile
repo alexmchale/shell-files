@@ -19,6 +19,7 @@ task :install_dotfiles do
     dst = "#{ENV["HOME"]}/.#{dst}"
 
     puts "#{src} => #{dst}"
+    FileUtils.rm_rf dst
     FileUtils.cp_r src, dst
   end
 end
