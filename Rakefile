@@ -7,6 +7,8 @@ end
 desc "Update this project"
 task :update do
   system("git pull origin master")
+  system("git submodule init")
+  system("git submodule update")
   system("git submodule foreach git pull origin master")
 end
 
