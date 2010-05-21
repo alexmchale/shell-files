@@ -7,3 +7,6 @@
 [submodule "home-dotfiles/vimbundles/nerdtree"]
 	path = home-dotfiles/vimbundles/nerdtree
 	url = git://github.com/scrooloose/nerdtree.git
+[submodule "home-dotfiles/vimbundles/vividchalk"]
+	path = home-dotfiles/vimbundles/vividchalk
+	url = http://github.com/tpope/vim-vividchalk.git
