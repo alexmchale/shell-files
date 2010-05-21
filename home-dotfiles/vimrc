@@ -40,12 +40,9 @@ map! <S-Insert> <MiddleMouse>
 map!  <BackSpace>
 
 if has("gui_running")
-  set gfn=-schumacher-clean-bold-r-normal-*-*-160-*-*-c-*-iso646.1991-irv
-  " colorscheme elflord
-  " colorscheme vividchalk
+  set guifont=Menlo:h14
+  colorscheme vividchalk
 endif
-
-" colorscheme vividchalk
 
 if has("autocmd")
   filetype plugin indent on
