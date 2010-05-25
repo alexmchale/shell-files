@@ -21,9 +21,10 @@ set showmatch
 set matchpairs+=<:>
 set showmode
 set nowrap
-" set mouse-=a
+set mouse-=a
 set noincsearch
 set number
+set go-=rL
 
 highlight LineNr guifg=#777777 guibg=#202020 ctermfg=grey ctermbg=darkgrey
 
