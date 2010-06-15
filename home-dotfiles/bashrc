@@ -1,11 +1,35 @@
-# Determine what git branch we're on.
-function parse_git_branch {
+# Define the ANSI colors.
+       CLEAR="\[\033[00m\]"
+        BLUE="\[\033[0;34m\]"
+  LIGHT_BLUE="\[\033[1;34m\]"
+         RED="\[\033[0;31m\]"
+   LIGHT_RED="\[\033[1;31m\]"
+       GREEN="\[\033[0;32m\]"
+ LIGHT_GREEN="\[\033[1;32m\]"
+       WHITE="\[\033[1;37m\]"
+  LIGHT_GRAY="\[\033[0;37m\]"
+
+function git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ *\1/'
+}
+
+hg_branch() {
+  hg prompt " {status}{branch}" 2> /dev/null
+}
+
+function repo_prompt {
+  GIT="$(git_branch)"
+  HG="$(hg_branch)"
+
+  if [ ! -z "$GIT" ]; then
+    echo -n "$GIT"
+  elif [ ! -z "$HG" ]; then
+    echo -n "$HG"
+  fi
 }
 
 # Move up the directory tree until we're in the root of a git project.
 function cdg {
-
   while [ 1 ]; do
 
     if [ "/" = "`pwd`" ]; then
@@ -19,26 +43,25 @@ function cdg {
     cd ..
 
   done
-
 }
 
-# Define the ANSI colors.
-       CLEAR="\[\033[00m\]"
-        BLUE="\[\033[0;34m\]"
-  LIGHT_BLUE="\[\033[1;34m\]"
-         RED="\[\033[0;31m\]"
-   LIGHT_RED="\[\033[1;31m\]"
-       GREEN="\[\033[0;32m\]"
- LIGHT_GREEN="\[\033[1;32m\]"
-       WHITE="\[\033[1;37m\]"
-  LIGHT_GRAY="\[\033[0;37m\]"
+# Provide a colorized, paged diff of the Hg repo.
+function hd {
+  hg cdiff $* | less -rFX
+}
+
 
 # Set the prompts.
-export PS1="$BLUE[$LIGHT_BLUE\u@\h $LIGHT_GREEN\w$LIGHT_BLUE\$(parse_git_branch)$BLUE]$LIGHT_BLUE\$ $CLEAR"
+export PS1="$BLUE[$LIGHT_BLUE\u@\h $LIGHT_GREEN\w$LIGHT_BLUE\$(repo_prompt)$BLUE]$LIGHT_BLUE\$ $CLEAR"
 export PS2="> "
 export PS4="+ "
 
-alias ls='ls --color=auto'
+if [ -f "$HOME/Homebrew/bin/gls" ]; then
+  alias ls="$HOME/Homebrew/bin/gls --color=auto"
+else
+  alias ls="ls --color=auto"
+fi
+
 alias gems='sudo gem search --remote'
 alias gemi='sudo gem install --no-ri --no-rdoc --remote'
 alias gs='git status'
@@ -49,7 +72,12 @@ alias resume='screen -D -RR'
 alias apts='sudo apt-cache search'
 alias apti='sudo apt-get install'
 alias tt='tt++ ~/.tintinrc'
+alias bullfrog-socks='ssh -fND localhost:8099 alexmchale@swankdb.com'
+alias fvim='mvim -S ~/.vim/fullscreen.vim'
+alias hl='hg log -l 10'
+alias hs='hg status'
+alias resume='exec screen -D -RR'
 
-export PATH="/usr/local/redis:/opt/java/bin:/opt/maven/bin:$PATH:$HOME/bin"
+export PATH="$HOME/Homebrew/bin:/usr/local/redis:/opt/java/bin:/opt/maven/bin:$PATH:$HOME/bin"
 export EDITOR="vim"
 export JAVA_HOME="/opt/java"
