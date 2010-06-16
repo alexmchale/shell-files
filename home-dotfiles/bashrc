@@ -50,6 +50,28 @@ function hd {
   hg cdiff $* | less -rFX
 }
 
+# Search the rails project you're in.
+function rg {
+  STARTED_IN="`pwd`"
+
+  while [ 1 ]; do
+
+    if [ "/" = "`pwd`" ]; then
+      break
+    fi
+
+    if [[ -e "app" && -e "lib" && -e "config" ]]; then
+      grep -s -r "$*" app bin config lib test
+
+      break
+    fi
+
+    cd ..
+
+  done
+
+  cd $STARTED_IN
+}
 
 # Set the prompts.
 export PS1="$BLUE[$LIGHT_BLUE\u@\h $LIGHT_GREEN\w$LIGHT_BLUE\$(repo_prompt)$BLUE]$LIGHT_BLUE\$ $CLEAR"
