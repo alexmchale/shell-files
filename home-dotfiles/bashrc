@@ -95,7 +95,7 @@ alias hl='hg log -l 10'
 alias hs='hg status'
 alias resume='exec screen -D -RR'
 
-export PATH="$HOME/Homebrew/bin:/usr/local/redis:/opt/java/bin:/opt/maven/bin:$PATH:$HOME/bin"
+export PATH="$HOME/Homebrew/bin:/usr/local/redis:/opt/java/bin:/opt/maven/bin:$PATH:$HOME/bin:$HOME/Applications"
 export EDITOR="vim"
 
 if [ "`uname -s`" != "Darwin" ]; then
