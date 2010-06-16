@@ -97,4 +97,7 @@ alias resume='exec screen -D -RR'
 
 export PATH="$HOME/Homebrew/bin:/usr/local/redis:/opt/java/bin:/opt/maven/bin:$PATH:$HOME/bin"
 export EDITOR="vim"
-export JAVA_HOME="/opt/java"
+
+if [ "`uname -s`" != "Darwin" ]; then
+  export JAVA_HOME="/opt/java"
+fi
