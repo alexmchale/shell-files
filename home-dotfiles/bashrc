@@ -54,15 +54,10 @@ function hd {
 function rg {
   STARTED_IN="`pwd`"
 
-  while [ 1 ]; do
-
-    if [ "/" = "`pwd`" ]; then
-      break
-    fi
+  while [ "/" != "`pwd`" ]; do
 
     if [[ -e "app" && -e "lib" && -e "config" ]]; then
       grep -s -r "$*" app bin config lib test
-
       break
     fi
 
