@@ -57,7 +57,7 @@ function rg {
   while [ "/" != "`pwd`" ]; do
 
     if [[ -e "app" && -e "lib" && -e "config" ]]; then
-      grep -s -r "$*" app bin config lib test
+      grep -n -s -r "$*" app bin config lib test
       break
     fi
 
