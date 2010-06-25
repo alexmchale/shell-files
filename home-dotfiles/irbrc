@@ -1,0 +1,31 @@
+require 'rubygems'
+require 'andand'
+require 'ap'
+
+require "wirble"
+Wirble.init
+Wirble.colorize
+
+# Log to STDOUT if in Rails
+if ENV.include?('RAILS_ENV') && !Object.const_defined?('RAILS_DEFAULT_LOGGER')
+  require 'logger'
+  RAILS_DEFAULT_LOGGER = Logger.new(STDOUT)
+end
+
+module Kernel
+  def trace_call(&block)
+    set_trace_func proc { |event, file, line, id, binding, classname|
+      printf "%8s %s:%-2d %10s %8s\n", event, file, line, id, classname
+    }
+
+    return_value = block.call
+
+    set_trace_func nil
+
+    return_value
+  end
+
+  def local_methods(obj = self)
+    (obj.methods - obj.class.superclass.instance_methods).sort
+  end
+end
