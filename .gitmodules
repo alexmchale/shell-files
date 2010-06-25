@@ -13,3 +13,6 @@
 [submodule "home-dotfiles/vimbundles/matchit"]
 	path = home-dotfiles/vimbundles/matchit
 	url = http://github.com/tsaleh/vim-matchit.git
+[submodule "home-dotfiles/vimbundles/fugitive"]
+	path = home-dotfiles/vimbundles/fugitive
+	url = http://github.com/tpope/vim-fugitive.git
