@@ -10,3 +10,6 @@
 [submodule "home-dotfiles/vimbundles/vividchalk"]
 	path = home-dotfiles/vimbundles/vividchalk
 	url = http://github.com/tpope/vim-vividchalk.git
+[submodule "home-dotfiles/vimbundles/matchit"]
+	path = home-dotfiles/vimbundles/matchit
+	url = http://github.com/tsaleh/vim-matchit.git
