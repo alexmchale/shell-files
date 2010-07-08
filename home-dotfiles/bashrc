@@ -50,6 +50,23 @@ function hd {
   hg cdiff $* | less -rFX
 }
 
+# Search the rails project you're in.
+function rg {
+  STARTED_IN="`pwd`"
+
+  while [ "/" != "`pwd`" ]; do
+
+    if [[ -e "app" && -e "lib" && -e "config" ]]; then
+      grep -n -s -r "$*" app bin config lib test
+      break
+    fi
+
+    cd ..
+
+  done
+
+  cd $STARTED_IN
+}
 
 # Set the prompts.
 export PS1="$BLUE[$LIGHT_BLUE\u@\h $LIGHT_GREEN\w$LIGHT_BLUE\$(repo_prompt)$BLUE]$LIGHT_BLUE\$ $CLEAR"
@@ -77,7 +94,11 @@ alias fvim='mvim -S ~/.vim/fullscreen.vim'
 alias hl='hg log -l 10'
 alias hs='hg status'
 alias resume='exec screen -D -RR'
+alias rm.orig="find . -name '*.orig' -exec rm -i {} \\;"
 
-export PATH="$HOME/Homebrew/bin:/usr/local/redis:/opt/java/bin:/opt/maven/bin:$PATH:$HOME/bin"
+export PATH="$HOME/Homebrew/bin:/usr/local/redis:/opt/java/bin:/opt/maven/bin:$PATH:$HOME/bin:$HOME/Applications"
 export EDITOR="vim"
-export JAVA_HOME="/opt/java"
+
+if [ "`uname -s`" != "Darwin" ]; then
+  export JAVA_HOME="/opt/java"
+fi
