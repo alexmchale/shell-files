@@ -14,7 +14,7 @@ function git_branch {
 }
 
 hg_branch() {
-  hg prompt " {status}{branch}" 2> /dev/null
+  hg prompt > /dev/null 2>&1 && hg prompt " {status}{branch}" 2> /dev/null
 }
 
 function repo_prompt {
