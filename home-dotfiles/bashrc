@@ -10,11 +10,11 @@
   LIGHT_GRAY="\[\033[0;37m\]"
 
 function git_branch {
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ *\1/'
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/*\1/'
 }
 
 hg_branch() {
-  hg prompt > /dev/null 2>&1 && hg prompt " {status}{branch}" 2> /dev/null
+  hg prompt > /dev/null 2>&1 && hg prompt "{status}{branch}" 2> /dev/null
 }
 
 function repo_prompt {
@@ -22,9 +22,9 @@ function repo_prompt {
   HG="$(hg_branch)"
 
   if [ ! -z "$GIT" ]; then
-    echo -n "$GIT"
+    echo -n " $GIT"
   elif [ ! -z "$HG" ]; then
-    echo -n "$HG"
+    echo -n " $HG"
   fi
 }
 
@@ -34,7 +34,7 @@ function rvm_prompt {
   local version=$(echo $MY_RUBY_HOME | awk -F'-' '{print $2}')
   [ "$version" == "1.8.7" ] && version=""
   local full="$version$gemset"
-  [ "$full" != "" ] && echo "$full"
+  [ "$full" != "" ] && echo "rvm:$full"
 }
 
 # Move up the directory tree until we're in the root of a git project.
@@ -82,7 +82,7 @@ function http-tgz {
 }
 
 # Set the prompts.
-export PS1="\n$BLUE[$LIGHT_BLUE\u@\h $LIGHT_GREEN\w$LIGHT_BLUE\$(repo_prompt) \$(rvm_prompt)$BLUE]\n$LIGHT_BLUE\$ $CLEAR"
+export PS1="\n$BLUE[$LIGHT_BLUE\u@\h\$(repo_prompt) \$(rvm_prompt) $LIGHT_GREEN\w$BLUE]\n$LIGHT_BLUE\$ $CLEAR"
 export PS2="> "
 export PS4="+ "
 
