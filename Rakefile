@@ -3,7 +3,7 @@ require "fileutils"
 include FileUtils
 
 desc "Install all files"
-task :install => [ :update, :dotfiles, :rvm ] do
+task :install => [ :update, :dotfiles, :rvm, :gems ] do
 end
 
 desc "Update this project"
@@ -34,5 +34,12 @@ task :rvm do
     system "bash -l -c 'rvm update'"
   else
     system "bash -c 'bash < <( curl http://rvm.beginrescueend.com/releases/rvm-install-head )'"
+  end
+end
+
+desc "Install RubyGems"
+task :gems do
+  %w( wirble andand awesome_print ).each do |gem|
+    system "bash -l -c 'rvm gem install #{gem}'"
   end
 end
