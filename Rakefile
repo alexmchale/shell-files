@@ -24,7 +24,7 @@ task :dotfiles do
 
     puts "#{src} => #{dst}"
     rm_rf dst
-    cp_r src, dst
+    cp_r src, dst, :preserve => true
   end
 end
 
