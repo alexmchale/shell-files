@@ -31,7 +31,7 @@ end
 desc "Install RVM"
 task :rvm do
   if File.exists? File.expand_path "~/.rvm"
-    system "bash -l -c 'rvm update'"
+    system "bash -l -c 'rvm update --head'"
   else
     system "bash -c 'bash < <( curl http://rvm.beginrescueend.com/releases/rvm-install-head )'"
   end
