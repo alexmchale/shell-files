@@ -3,7 +3,7 @@ require "fileutils"
 include FileUtils
 
 desc "Install all files"
-task :install => [ :update, :install_dotfiles, :rvm ] do
+task :install => [ :update, :dotfiles, :rvm ] do
 end
 
 desc "Update this project"
@@ -15,7 +15,7 @@ task :update do
 end
 
 desc "Install dotfiles"
-task :install_dotfiles do
+task :dotfiles do
   Dir.glob("home-dotfiles/*").each do |src|
     dst = src.scan(/home-dotfiles\/(.*)/).first.first
     dst = "#{ENV["HOME"]}/.#{dst}"
