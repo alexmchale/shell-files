@@ -8,10 +8,12 @@ end
 
 desc "Update this project"
 task :update do
-  system("git pull origin master")
-  system("git submodule init")
-  system("git submodule update")
-  system("git submodule foreach git pull origin master")
+  system "git pull origin master"
+  system "git submodule init"
+  system "git submodule update"
+  system "git submodule foreach git pull origin master"
+  system "git submodule foreach git merge origin/master"
+  system "git submodule foreach git checkout master"
 end
 
 desc "Install dotfiles"
@@ -28,5 +30,9 @@ end
 
 desc "Install RVM"
 task :rvm do
-  system "bash -c 'bash < <( curl http://rvm.beginrescueend.com/releases/rvm-install-head )'"
+  if File.exists? File.expand_path "~/.rvm"
+    system "bash -l -c 'rvm update'"
+  else
+    system "bash -c 'bash < <( curl http://rvm.beginrescueend.com/releases/rvm-install-head )'"
+  end
 end
