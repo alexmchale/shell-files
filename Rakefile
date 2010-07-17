@@ -39,7 +39,6 @@ end
 
 desc "Install RubyGems"
 task :gems do
-  %w( wirble andand awesome_print ).each do |gem|
-    system "bash -l -c 'rvm gem install #{gem}'"
-  end
+  gems = "wirble andand awesome_print"
+  system "bash -l -c 'rvm gem install #{gems}'"
 end
