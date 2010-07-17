@@ -68,6 +68,10 @@ function rg {
   cd $STARTED_IN
 }
 
+function http-tgz {
+  curl "$1" | tar xvz
+}
+
 # Set the prompts.
 export PS1="$BLUE[$LIGHT_BLUE\u@\h $LIGHT_GREEN\w$LIGHT_BLUE\$(repo_prompt)$BLUE]$LIGHT_BLUE\$ $CLEAR"
 export PS2="> "
