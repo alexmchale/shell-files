@@ -1,7 +1,9 @@
 require "fileutils"
 
+include FileUtils
+
 desc "Install all files"
-task :install => [ :update, :install_dotfiles ] do
+task :install => [ :update, :install_dotfiles, :rvm ] do
 end
 
 desc "Update this project"
@@ -19,7 +21,12 @@ task :install_dotfiles do
     dst = "#{ENV["HOME"]}/.#{dst}"
 
     puts "#{src} => #{dst}"
-    FileUtils.rm_rf dst
-    FileUtils.cp_r src, dst
+    rm_rf dst
+    cp_r src, dst
   end
+end
+
+desc "Install RVM"
+task :rvm do
+  system "bash -c 'bash < <( curl http://rvm.beginrescueend.com/releases/rvm-install-head )'"
 end
