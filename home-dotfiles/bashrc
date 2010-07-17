@@ -102,3 +102,6 @@ export EDITOR="vim"
 if [ "`uname -s`" != "Darwin" ]; then
   export JAVA_HOME="/opt/java"
 fi
+
+# Load RVM if it is available.
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
