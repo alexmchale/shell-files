@@ -37,10 +37,9 @@ function repo_prompt {
 function rvm_prompt {
   local gemset=$(echo $GEM_HOME | awk -F'@' '{print $2}')
   [ "$gemset" != "" ] && gemset="@$gemset"
-  local version=$(echo $MY_RUBY_HOME | awk -F'-' '{print $2}')
-  [ "$version" == "1.8.7" ] && version=""
+  local version=$(echo $MY_RUBY_HOME | awk -F'/' '{print $NF}')
   local full="$version$gemset"
-  [ "$full" != "" ] && echo "rvm:$full"
+  [ "$full" != "" ] && echo " $full"
 }
 
 # Move up the directory tree until we're in the root of a git project.
@@ -88,7 +87,7 @@ function http-tgz {
 }
 
 # Set the prompts.
-export PS1="\n$BLUE[$LIGHT_GREEN\u@\h\$(repo_prompt) \$(rvm_prompt) $LIGHT_YELLOW\w$BLUE]\n$BLUE\$ $CLEAR"
+export PS1="\n$BLUE[$LIGHT_GREEN\u@\h\$(repo_prompt)\$(rvm_prompt) $LIGHT_YELLOW\w$BLUE]\n$BLUE\$ $CLEAR"
 export PS2="> "
 export PS4="+ "
 
