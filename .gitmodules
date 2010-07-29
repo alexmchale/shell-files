@@ -16,3 +16,6 @@
 [submodule "home-dotfiles/vimbundles/fugitive"]
 	path = home-dotfiles/vimbundles/fugitive
 	url = http://github.com/tpope/vim-fugitive.git
+[submodule "home-dotfiles/vimbundles/coffee-script"]
+	path = home-dotfiles/vimbundles/coffee-script
+	url = http://github.com/kchmck/vim-coffee-script.git
