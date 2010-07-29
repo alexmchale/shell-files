@@ -86,6 +86,10 @@ function http-tgz {
   curl "$1" | tar xvz
 }
 
+function send-my-public-key {
+  cat ~/.ssh/id_rsa.pub | ssh $1 'cat - >> ~/.ssh/authorized_keys ; chmod -R go-rwx ~/.ssh'
+}
+
 # Set the prompts.
 export PS1="\n$BLUE[$LIGHT_GREEN\u@\h\$(repo_prompt)\$(rvm_prompt) $LIGHT_YELLOW\w$BLUE]\n$BLUE\$ $CLEAR"
 export PS2="> "
