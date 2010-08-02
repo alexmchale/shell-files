@@ -19,3 +19,6 @@
 [submodule "home-dotfiles/vimbundles/coffee-script"]
 	path = home-dotfiles/vimbundles/coffee-script
 	url = http://github.com/kchmck/vim-coffee-script.git
+[submodule "home-dotfiles/vimbundles/surround"]
+	path = home-dotfiles/vimbundles/surround
+	url = http://github.com/tpope/vim-surround.git
