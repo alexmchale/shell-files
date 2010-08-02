@@ -125,5 +125,8 @@ if [ "`uname -s`" != "Darwin" ]; then
   export JAVA_HOME="/opt/java"
 fi
 
+# Load privaterc if it is available.
+[[ -s "$HOME/.privaterc" ]] && source "$HOME/.privaterc"
+
 # Load RVM if it is available.
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"

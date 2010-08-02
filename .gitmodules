@@ -22,3 +22,6 @@
 [submodule "home-dotfiles/vimbundles/surround"]
 	path = home-dotfiles/vimbundles/surround
 	url = http://github.com/tpope/vim-surround.git
+[submodule "home-dotfiles/vimbundles/gist"]
+	path = home-dotfiles/vimbundles/gist
+	url = http://github.com/mattn/gist-vim.git
