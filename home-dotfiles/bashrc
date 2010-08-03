@@ -90,29 +90,25 @@ function send-my-public-key {
   cat ~/.ssh/id_rsa.pub | ssh $1 'cat - >> ~/.ssh/authorized_keys ; chmod -R go-rwx ~/.ssh'
 }
 
-function hg {
-  if [[ "$1" = "inout" ]]; then
-    printf $GREEN
-    printf "===  Status  ===\n"
-    printf $YELLOW
-    hg status
-    printf "\n"
+function hg-inout {
+  printf $GREEN
+  printf "===  Status  ===\n"
+  printf $YELLOW
+  hg status
+  printf "\n"
 
-    printf $GREEN
-    printf "=== Incoming ===\n"
-    printf $YELLOW
-    hg incoming
-    printf "\n"
+  printf $GREEN
+  printf "=== Incoming ===\n"
+  printf $YELLOW
+  hg incoming
+  printf "\n"
 
-    printf $GREEN
-    printf "=== Outgoing ===\n"
-    printf $YELLOW
-    hg outgoing
+  printf $GREEN
+  printf "=== Outgoing ===\n"
+  printf $YELLOW
+  hg outgoing
 
-    printf $CLEAR
-  else
-    `which hg` $*
-  fi
+  printf $CLEAR
 }
 
 # Set the prompts.
