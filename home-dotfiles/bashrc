@@ -93,19 +93,19 @@ function send-my-public-key {
 function hg-inout {
   printf $GREEN
   printf "===  Status  ===\n"
-  printf $YELLOW
+  printf $MAGENTA
   hg status
   printf "\n"
 
   printf $GREEN
   printf "=== Incoming ===\n"
-  printf $YELLOW
+  printf $MAGENTA
   hg incoming
   printf "\n"
 
   printf $GREEN
   printf "=== Outgoing ===\n"
-  printf $YELLOW
+  printf $MAGENTA
   hg outgoing
 
   printf $CLEAR
