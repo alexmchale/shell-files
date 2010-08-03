@@ -25,3 +25,6 @@
 [submodule "home-dotfiles/vimbundles/gist"]
 	path = home-dotfiles/vimbundles/gist
 	url = http://github.com/mattn/gist-vim.git
+[submodule "home-dotfiles/hgbundles/hg-git"]
+	path = home-dotfiles/hgbundles/hg-git
+	url = http://github.com/schacon/hg-git.git
