@@ -112,7 +112,7 @@ function hg-inout {
 }
 
 # Set the prompts.
-export PS1="\n$BLUE[$LIGHT_GREEN\u@\h\$(repo_prompt)\$(rvm_prompt) $LIGHT_YELLOW\w$BLUE]\n$BLUE\$ $CLEAR"
+export PS1="\n\[$BLUE\][\[$LIGHT_GREEN\]\u@\h\$(repo_prompt)\$(rvm_prompt) \[$LIGHT_YELLOW\]\w\[$BLUE\]]\n\[$BLUE\]\$ \[$CLEAR\]"
 export PS2="> "
 export PS4="+ "
 
