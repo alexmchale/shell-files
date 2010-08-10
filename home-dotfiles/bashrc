@@ -111,6 +111,10 @@ function hg-inout {
   printf $CLEAR
 }
 
+function hg-history {
+  hg log -r $1:0 -f | less -r
+}
+
 # Set the prompts.
 export PS1="\n\[$BLUE\][\[$LIGHT_GREEN\]\u@\h\$(repo_prompt)\$(rvm_prompt) \[$LIGHT_YELLOW\]\w\[$BLUE\]]\n\[$BLUE\]\$ \[$CLEAR\]"
 export PS2="> "
