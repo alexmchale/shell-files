@@ -64,6 +64,14 @@ function hd {
   hg cdiff $* | less -rFX
 }
 
+function gd {
+  git diff --color $* | less -rFX
+}
+
+function gds {
+  gd --staged $*
+}
+
 # Search the rails project you're in.
 function rg {
   STARTED_IN="`pwd`"
@@ -130,8 +138,6 @@ alias gems='gem search --remote'
 alias gemi='gem install --no-ri --no-rdoc --remote'
 alias gs='git status'
 alias gls="git log --pretty=oneline"
-alias gd="git diff"
-alias gds="git diff --staged"
 alias resume='screen -D -RR'
 alias apts='sudo apt-cache search'
 alias apti='sudo apt-get install'
