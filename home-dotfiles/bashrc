@@ -152,6 +152,8 @@ alias la="ls -a"
 
 export PATH="$HOME/.scripts:$HOME/.git-extras/bin:$HOME/Homebrew/bin:/usr/local/redis:/opt/java/bin:/opt/maven/bin:$PATH:$HOME/bin:$HOME/Applications"
 export EDITOR="vim"
+export GEM_PRIVATE_KEY="$HOME/.ssh/gem-private_key.pem"
+export GEM_CERTIFICATE_CHAIN="$HOME/.ssh/gem-public_cert.pem"
 
 if [ "`uname -s`" != "Darwin" ]; then
   export JAVA_HOME="/opt/java"
