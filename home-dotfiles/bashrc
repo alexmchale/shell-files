@@ -122,12 +122,15 @@ export PS4="+ "
 
 if [ -f "$HOME/Homebrew/bin/gls" ]; then
   alias ls="$HOME/Homebrew/bin/gls --color=auto"
+elif [ -f "/usr/local/bin/gls" ]; then
+  alias ls="/usr/local/bin/gls --color=auto"
 else
   alias ls="ls --color=auto"
 fi
 
 alias gems='gem search --remote'
 alias gemi='gem install --no-ri --no-rdoc --remote'
+alias gemu='gem uninstall --all --executables'
 alias gs='git status'
 alias gls="git log --pretty=oneline"
 alias gd="git diff"
@@ -144,7 +147,7 @@ alias resume='exec screen -D -RR'
 alias rm.orig="find . -name '*.orig' -exec rm -i {} \\;"
 alias la="ls -a"
 
-export PATH="$HOME/.scripts:$HOME/Homebrew/bin:/usr/local/redis:/opt/java/bin:/opt/maven/bin:$PATH:$HOME/bin:$HOME/Applications"
+export PATH="$HOME/.scripts:/usr/local/share/npm/bin:$HOME/Homebrew/bin:/usr/local/redis:/opt/java/bin:/opt/maven/bin:$PATH:$HOME/bin:$HOME/Applications"
 export EDITOR="vim"
 
 if [ "`uname -s`" != "Darwin" ]; then
