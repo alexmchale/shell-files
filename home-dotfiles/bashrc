@@ -64,6 +64,14 @@ function hd {
   hg cdiff $* | less -rFX
 }
 
+function gd {
+  git diff --color $* | less -rFX
+}
+
+function gds {
+  gd --staged $*
+}
+
 # Search the rails project you're in.
 function rg {
   STARTED_IN="`pwd`"
@@ -133,8 +141,6 @@ alias gemi='gem install --no-ri --no-rdoc --remote'
 alias gemu='gem uninstall --all --executables'
 alias gs='git status'
 alias gls="git log --pretty=oneline"
-alias gd="git diff"
-alias gds="git diff --staged"
 alias resume='screen -D -RR'
 alias apts='sudo apt-cache search'
 alias apti='sudo apt-get install'
@@ -147,8 +153,10 @@ alias resume='exec screen -D -RR'
 alias rm.orig="find . -name '*.orig' -exec rm -i {} \\;"
 alias la="ls -a"
 
-export PATH="$HOME/.scripts:/usr/local/share/npm/bin:$HOME/Homebrew/bin:/usr/local/redis:/opt/java/bin:/opt/maven/bin:$PATH:$HOME/bin:$HOME/Applications"
+export PATH="$HOME/.scripts:$HOME/.git-extras/bin:/usr/local/share/npm/bin:$HOME/Homebrew/bin:/usr/local/redis:/opt/java/bin:/opt/maven/bin:$PATH:$HOME/bin:$HOME/Applications"
 export EDITOR="vim"
+export GEM_PRIVATE_KEY="$HOME/.ssh/gem-private_key.pem"
+export GEM_CERTIFICATE_CHAIN="$HOME/.ssh/gem-public_cert.pem"
 
 if [ "`uname -s`" != "Darwin" ]; then
   export JAVA_HOME="/opt/java"
