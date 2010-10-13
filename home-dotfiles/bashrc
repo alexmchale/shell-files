@@ -119,12 +119,16 @@ function hg-inout {
   printf $CLEAR
 }
 
-function hg-history {
-  hg log -r $1:0 -f | less -r
-}
+function hg-history { hg log -r $1:0 -f | less -r; }
+
+function add-paths { for p in "$@"; do export PATH="$p:$PATH"; done; }
+function add-home-paths { for p in "$@"; do export PATH="$HOME/$p:$PATH"; done; }
+
+add-paths      "/usr/local/redis" "/opt/java/bin" "/usr/local/lib/ruby/gems/1.8/bin"
+add-home-paths ".scripts" ".git-extras/bin" "Homebrew/bin" "Applications" "bin"
 
 # Set the prompts.
-export PS1="\n\[$BLUE\][\[$LIGHT_GREEN\]\u@\h\$(repo_prompt)\$(rvm_prompt) \[$LIGHT_YELLOW\]\w\[$BLUE\]]\n\[$BLUE\]\$ \[$CLEAR\]"
+export PS1="\n\[$BLUE\][\[$LIGHT_GREEN\]\u@\h\$(repo_prompt)\$(rvm_prompt) \[$LIGHT_YELLOW\]\w\[$BLUE\]]\[$BLUE\]\$ \[$CLEAR\]"
 export PS2="> "
 export PS4="+ "
 
@@ -150,7 +154,6 @@ alias resume='exec screen -D -RR'
 alias rm.orig="find . -name '*.orig' -exec rm -i {} \\;"
 alias la="ls -a"
 
-export PATH="$HOME/.scripts:$HOME/.git-extras/bin:$HOME/Homebrew/bin:/usr/local/redis:/opt/java/bin:/opt/maven/bin:$PATH:$HOME/bin:$HOME/Applications"
 export EDITOR="vim"
 export GEM_PRIVATE_KEY="$HOME/.ssh/gem-private_key.pem"
 export GEM_CERTIFICATE_CHAIN="$HOME/.ssh/gem-public_cert.pem"

@@ -89,3 +89,7 @@ if has("gui_macvim")
   macmenu &File.New\ Tab key=<nop>
   map <D-t> PeepOpen
 end
+
+augroup mkd
+  autocmd BufRead *.mkd set ai formatoptions=tcroqn2 comments=n:>
+augroup END
