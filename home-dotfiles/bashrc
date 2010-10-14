@@ -15,6 +15,10 @@
          WHITE="\033[1;37m"
     LIGHT_GRAY="\033[0;37m"
 
+function current-time {
+  echo -n `date +"%l:%M"`
+}
+
 function git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/*\1/'
 }
@@ -128,7 +132,7 @@ add-paths      /usr/local/share/npm/bin /usr/local/redis /opt/java/bin /usr/loca
 add-home-paths .scripts .git-extras/bin Homebrew/bin Applications bin
 
 # Set the prompts.
-export PS1="\n\[$BLUE\][\[$LIGHT_GREEN\]\u@\h\$(repo_prompt)\$(rvm_prompt) \[$LIGHT_YELLOW\]\w\[$BLUE\]]\[$BLUE\]\$ \[$CLEAR\]"
+export PS1="\[$BLUE\][\[$RED\]$(current-time) \[$LIGHT_GREEN\]\u@\h\$(repo_prompt)\$(rvm_prompt) \[$LIGHT_YELLOW\]\w\[$BLUE\]]\[$BLUE\]\$ \[$CLEAR\]"
 export PS2="> "
 export PS4="+ "
 
