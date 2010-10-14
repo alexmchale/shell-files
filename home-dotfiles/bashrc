@@ -132,7 +132,7 @@ add-paths      /usr/local/share/npm/bin /usr/local/redis /opt/java/bin /usr/loca
 add-home-paths .scripts .git-extras/bin Homebrew/bin Applications bin
 
 # Set the prompts.
-export PS1="\[$BLUE\][\[$RED\]$(current-time) \[$LIGHT_GREEN\]\u@\h\$(repo_prompt)\$(rvm_prompt) \[$LIGHT_YELLOW\]\w\[$BLUE\]]\[$BLUE\]\$ \[$CLEAR\]"
+export PS1="\[$BLUE\][\[$RED\]\$(current-time) \[$LIGHT_GREEN\]\u@\h\$(repo_prompt)\$(rvm_prompt) \[$LIGHT_YELLOW\]\w\[$BLUE\]]\[$BLUE\]\$ \[$CLEAR\]"
 export PS2="> "
 export PS4="+ "
 
