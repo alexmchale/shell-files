@@ -136,12 +136,13 @@ export PS1="\[$BLUE\][\[$RED\]\$(current-time) \[$LIGHT_GREEN\]\u@\h\$(repo_prom
 export PS2="> "
 export PS4="+ "
 
+GNU_LS_OPTIONS="--color=auto -Fh"
 if [ -f "$HOME/Homebrew/bin/gls" ]; then
-  alias ls="$HOME/Homebrew/bin/gls --color=auto"
+  alias ls="$HOME/Homebrew/bin/gls $GNU_LS_OPTIONS"
 elif [ -f "/usr/local/bin/gls" ]; then
-  alias ls="/usr/local/bin/gls --color=auto"
+  alias ls="/usr/local/bin/gls $GNU_LS_OPTIONS"
 else
-  alias ls="ls --color=auto"
+  alias ls="ls $GNU_LS_OPTIONS"
 fi
 
 alias gems='gem search --remote'
