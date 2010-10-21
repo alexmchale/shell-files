@@ -8,9 +8,10 @@ end
 
 desc "Update this project"
 task :update do
-  system "git pull origin master"
-  system "git submodule init"
-  system "git submodule update --rebase"
+  sh "git pull origin master"
+  sh "git submodule init"
+  sh "git submodule foreach git reset --hard"
+  sh "git submodule foreach git pull origin master"
 end
 
 desc "Install dotfiles"
