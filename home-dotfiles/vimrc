@@ -43,6 +43,8 @@ map!  <BackSpace>
 if has("gui_running")
   set guifont=Menlo:h14
   colorscheme vividchalk
+else
+  colorscheme slate
 endif
 
 if has("autocmd")
