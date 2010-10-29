@@ -43,6 +43,8 @@ map!  <BackSpace>
 if has("gui_running")
   set guifont=Menlo:h14
   colorscheme vividchalk
+else
+  colorscheme slate
 endif
 
 if has("autocmd")
@@ -79,10 +81,6 @@ let Tlist_Show_One_File = 1
 
 set guifont=Menlo:h15.00
 
-"if has("folding")
-"  set foldenable
-"  set foldmethod=syntax
-"  set foldlevel=1
-"  set foldnestmax=2
-"  set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ ('.(v:foldend-v:foldstart+1).'\ lines)\ '
-"endif
+augroup mkd
+  autocmd BufRead *.mkd set ai formatoptions=tcroqn2 comments=n:>
+augroup END
