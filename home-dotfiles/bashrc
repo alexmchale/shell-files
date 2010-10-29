@@ -170,6 +170,8 @@ if [ "`uname -s`" != "Darwin" ]; then
   export JAVA_HOME="/opt/java"
 fi
 
+which figlet > /dev/null 2>&1 && echo && figlet -f slant `hostname` && echo
+
 # Load privaterc if it is available.
 [[ -s "$HOME/.privaterc" ]] && source "$HOME/.privaterc"
 
