@@ -99,7 +99,7 @@ function http-tgz {
 }
 
 function send-my-public-key {
-  cat ~/.ssh/id_rsa.pub | ssh $1 'cat - >> ~/.ssh/authorized_keys ; chmod -R go-rwx ~/.ssh'
+  cat ~/.ssh/id_rsa.pub | ssh $1 'mkdir -p ~/.ssh ; cat - >> ~/.ssh/authorized_keys ; chmod -R go-rwx ~/.ssh'
 }
 
 function hg-inout {
@@ -129,7 +129,7 @@ function add-paths { for p in "$@"; do export PATH="$p:$PATH"; done; }
 function add-home-paths { for p in "$@"; do export PATH="$HOME/$p:$PATH"; done; }
 
 add-paths      /usr/local/share/npm/bin /usr/local/redis /opt/java/bin /usr/local/lib/ruby/gems/1.8/bin
-add-home-paths .scripts .git-extras/bin Homebrew/bin Applications bin
+add-home-paths .scripts .git-extras/bin Homebrew/bin Applications bin bin/bin
 
 # Set the prompts.
 export PS1="\[$BLUE\][\[$RED\]\$(current-time) \[$LIGHT_GREEN\]\u@\h\$(repo_prompt)\$(rvm_prompt) \[$LIGHT_YELLOW\]\w\[$BLUE\]]\[$BLUE\]\$ \[$CLEAR\]"
