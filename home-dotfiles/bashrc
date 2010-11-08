@@ -99,7 +99,7 @@ function http-tgz {
 }
 
 function send-my-public-key {
-  cat ~/.ssh/id_rsa.pub | ssh $1 'cat - >> ~/.ssh/authorized_keys ; chmod -R go-rwx ~/.ssh'
+  cat ~/.ssh/id_rsa.pub | ssh $1 'mkdir -p ~/.ssh ; cat - >> ~/.ssh/authorized_keys ; chmod -R go-rwx ~/.ssh'
 }
 
 function hg-inout {
