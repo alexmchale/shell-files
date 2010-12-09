@@ -25,15 +25,12 @@
 [submodule "home-dotfiles/vimbundles/gist"]
 	path = home-dotfiles/vimbundles/gist
 	url = http://github.com/mattn/gist-vim.git
-[submodule "home-dotfiles/hgbundles/hg-git"]
-	path = home-dotfiles/hgbundles/hg-git
-	url = http://github.com/schacon/hg-git.git
-[submodule "home-dotfiles/git-extras"]
-	path = home-dotfiles/git-extras
-	url = http://github.com/visionmedia/git-extras.git
 [submodule "home-dotfiles/vimbundles/endwise"]
 	path = home-dotfiles/vimbundles/endwise
 	url = http://github.com/tpope/vim-endwise.git
 [submodule "home-dotfiles/vimbundles/align"]
 	path = home-dotfiles/vimbundles/align
 	url = https://github.com/tsaleh/vim-align.git
+[submodule "home-dotfiles/git-extras"]
+	path = home-dotfiles/git-extras
+	url = http://github.com/visionmedia/git-extras.git
