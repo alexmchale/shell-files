@@ -10,6 +10,7 @@ desc "Update this project"
 task :update do
   sh "git pull origin master"
   sh "git submodule init"
+  sh "git submodule update"
   sh "git submodule foreach git reset --hard"
   sh "git submodule foreach git pull origin master"
 end
