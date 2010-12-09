@@ -34,3 +34,6 @@
 [submodule "home-dotfiles/vimbundles/endwise"]
 	path = home-dotfiles/vimbundles/endwise
 	url = http://github.com/tpope/vim-endwise.git
+[submodule "home-dotfiles/vimbundles/align"]
+	path = home-dotfiles/vimbundles/align
+	url = https://github.com/tsaleh/vim-align.git
