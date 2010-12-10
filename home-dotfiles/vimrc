@@ -5,7 +5,8 @@ set ch=1
 set mousehide           " hide the mouse when typing
 set shiftwidth=2
 set softtabstop=2
-set cindent
+set tabstop=2
+set smartindent
 set expandtab
 set ruler
 set ai
@@ -44,7 +45,7 @@ if has("gui_running")
   set guifont=Menlo:h14
   colorscheme vividchalk
 else
-  colorscheme slate
+  colorscheme ralph
 endif
 
 if has("autocmd")
