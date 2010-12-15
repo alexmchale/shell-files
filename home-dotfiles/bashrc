@@ -128,7 +128,7 @@ function hg-history { hg log -r $1:0 -f | less -r; }
 function add-paths { for p in "$@"; do export PATH="$p:$PATH"; done; }
 function add-home-paths { for p in "$@"; do export PATH="$HOME/$p:$PATH"; done; }
 
-add-paths      /usr/local/share/npm/bin /usr/local/redis /opt/java/bin /usr/local/lib/ruby/gems/1.8/bin
+add-paths      /usr/local/share/npm/bin /usr/local/redis /opt/java/bin /usr/local/lib/ruby/gems/1.8/bin /usr/local/bin
 add-home-paths .scripts .git-extras/bin Homebrew/bin Applications bin bin/bin
 
 # Set the prompts.
@@ -171,8 +171,6 @@ export GEM_CERTIFICATE_CHAIN="$HOME/.ssh/gem-public_cert.pem"
 if [ "`uname -s`" != "Darwin" ]; then
   export JAVA_HOME="/opt/java"
 fi
-
-which figlet > /dev/null 2>&1 && echo && figlet -f slant `hostname` && echo
 
 # Load privaterc if it is available.
 [[ -s "$HOME/.privaterc" ]] && source "$HOME/.privaterc"

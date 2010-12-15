@@ -1,1 +1,3 @@
-bashrc
+if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
+
+which figlet > /dev/null 2>&1 && echo && figlet -f slant `hostname` && echo
