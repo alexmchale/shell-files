@@ -83,7 +83,7 @@ function rg {
   while [ "/" != "`pwd`" ]; do
 
     if [[ -e "app" && -e "lib" && -e "config" ]]; then
-      grep -n -s -r "$*" app bin config lib test public
+      grep -n -s -r "$*" app bin config lib test public spec features
       break
     fi
 
