@@ -1,10 +1,26 @@
-require 'rubygems'
-require 'andand'
-require 'ap'
+begin
+  require 'rubygems'
+rescue LoadError
+end
 
-require "wirble"
-Wirble.init
-Wirble.colorize
+begin
+  require 'andand'
+rescue LoadError
+end
+
+begin
+  require 'ap'
+rescue LoadError
+end
+
+begin
+  require "wirble"
+  Wirble.init
+  Wirble.colorize
+rescue LoadError
+end
+
+require "pp"
 
 # Log to STDOUT if in Rails
 if ENV.include?('RAILS_ENV') && !Object.const_defined?('RAILS_DEFAULT_LOGGER')
@@ -18,14 +34,35 @@ module Kernel
       printf "%8s %s:%-2d %10s %8s\n", event, file, line, id, classname
     }
 
-    return_value = block.call
-
+    block.call
+  ensure
     set_trace_func nil
-
-    return_value
   end
 
   def local_methods(obj = self)
     (obj.methods - obj.class.superclass.instance_methods).sort
+  end
+
+  def pretend_now_is(time)
+    begin
+      Time.testing_offset = Time.now - time
+      yield
+    ensure
+      Time.testing_offset = 0
+    end
+  end
+end
+
+# Extend the Time class so that we can offset the time that 'now'
+# returns.  This should allow us to effectively time warp for functional
+# tests that require limits per hour, what not.
+class Time #:nodoc:
+  class << self
+    attr_accessor :testing_offset
+    alias_method :real_now, :now
+    def now
+      real_now - testing_offset.to_i
+    end
+    alias_method :new, :now
   end
 end
