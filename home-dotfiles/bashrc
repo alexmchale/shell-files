@@ -145,9 +145,9 @@ else
   alias ls="ls $GNU_LS_OPTIONS"
 fi
 
-alias gems='gem search --remote'
-alias gemi='gem install --no-ri --no-rdoc --remote'
-alias gemu='gem uninstall --all --executables'
+alias gems='ruby -S gem search --remote'
+alias gemi='ruby -S gem install --no-ri --no-rdoc --remote'
+alias gemu='ruby -S gem uninstall --all --executables'
 alias gs='git status'
 alias gls="git log --pretty=oneline"
 alias resume='screen -D -RR'
