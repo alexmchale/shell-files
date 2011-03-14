@@ -76,14 +76,32 @@ function gds {
   gd --staged $*
 }
 
-# Search the rails project you're in.
+# Search the git project you're in.
 function rg {
   STARTED_IN="`pwd`"
 
   while [ "/" != "`pwd`" ]; do
 
-    if [[ -e "app" && -e "lib" && -e "config" ]]; then
+    if [ -e ".git" ]; then
       grep -n -s -r "$*" Gemfile app bin config lib test public spec features
+      break
+    fi
+
+    cd ..
+
+  done
+
+  cd $STARTED_IN
+}
+
+# Search the rails project you're in and mvim all the matches.
+function rg-mvim {
+  STARTED_IN="`pwd`"
+
+  while [ "/" != "`pwd`" ]; do
+
+    if [ -e ".git" ]; then
+      grep -r -l "$*" Gemfile app bin config lib test public spec features | xargs mvim -p
       break
     fi
 
