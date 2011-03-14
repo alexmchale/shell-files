@@ -15,6 +15,8 @@
          WHITE="\033[1;37m"
     LIGHT_GRAY="\033[0;37m"
 
+GREP_SEARCH_PATH="Gemfile app bin config lib test public spec features"
+
 function current-time {
   echo -n `date +"%l:%M"`
 }
@@ -83,7 +85,7 @@ function rg {
   while [ "/" != "`pwd`" ]; do
 
     if [ -e ".git" ]; then
-      grep -n -s -r "$*" Gemfile app bin config lib test public spec features
+      grep -n -s -r "$*" $GREP_SEARCH_PATH
       break
     fi
 
@@ -101,7 +103,8 @@ function rg-mvim {
   while [ "/" != "`pwd`" ]; do
 
     if [ -e ".git" ]; then
-      grep -r -l "$*" Gemfile app bin config lib test public spec features | xargs mvim -p
+      grep -n -s -r "$*" $GREP_SEARCH_PATH
+      grep -n -s -r -l "$*" $GREP_SEARCH_PATH | xargs mvim -p
       break
     fi
 
