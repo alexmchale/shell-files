@@ -96,6 +96,24 @@ function rg {
   cd $STARTED_IN
 }
 
+# Tell Pow to restart the project you're currently in.
+function repow {
+  STARTED_IN="`pwd`"
+
+  while [ "/" != "`pwd`" ]; do
+
+    if [ -e ".git" ]; then
+      touch "tmp/restart.txt"
+      break
+    fi
+
+    cd ..
+
+  done
+
+  cd $STARTED_IN
+}
+
 # Search the rails project you're in and mvim all the matches.
 function rg-mvim {
   STARTED_IN="`pwd`"
