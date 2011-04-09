@@ -34,3 +34,6 @@
 [submodule "home-dotfiles/git-extras"]
         path = home-dotfiles/git-extras
         url = http://github.com/visionmedia/git-extras.git
+[submodule "home-dotfiles/vimbundles/command-t"]
+	path = home-dotfiles/vimbundles/command-t
+	url = git://git.wincent.com/command-t.git

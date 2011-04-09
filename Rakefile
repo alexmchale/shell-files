@@ -4,6 +4,9 @@ include FileUtils
 
 desc "Install all files"
 task :install => [ :update, :dotfiles, :rvm ] do
+  cd File.expand_path "~/.vimbundles/command-t/ruby/command-t"
+  sh "rvm system ruby extconf.rb"
+  sh "make clean && make"
 end
 
 desc "Update this project"
@@ -20,7 +23,7 @@ task :dotfiles do
 
     puts "#{src} => #{dst}"
     rm_rf dst
-    cp_r src, dst, :preserve => true
+    sh "cp -rp #{src} #{dst}"
   end
 end
 
