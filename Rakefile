@@ -38,4 +38,6 @@ task :rvm do
   else
     system "bash -c 'bash < <( curl http://rvm.beginrescueend.com/releases/rvm-install-head )'"
   end
+
+  cp "resources/rvm-global.gems", File.expand_path("~/.rvm/gemsets/global.gems")
 end
