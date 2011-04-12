@@ -13,6 +13,9 @@ desc "Update this project"
 task :update do
   sh "git pull origin master"
   sh "git submodule update --init"
+  sh "git submodule foreach git reset --hard"
+  sh "git submodule foreach git co ."
+  sh "git submodule foreach git pull origin master"
 end
 
 desc "Install dotfiles"
