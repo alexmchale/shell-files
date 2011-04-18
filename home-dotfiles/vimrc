@@ -43,7 +43,7 @@ map!  <BackSpace>
 
 if has("gui_running")
   set guifont=Menlo:h14
-  set background=dark
+  set background=light
   colorscheme solarized
 else
   colorscheme solarized
