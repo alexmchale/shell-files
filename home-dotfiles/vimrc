@@ -27,6 +27,11 @@ set noincsearch
 set number
 set go-=rL
 
+" Disable all bells
+set vb t_vb=""
+autocmd VimEnter * set vb t_vb=
+au! GuiEnter * set vb t_vb=
+
 highlight LineNr guifg=#777777 guibg=#202020 ctermfg=grey ctermbg=darkgrey
 
 noremap <C-J> <PageDown>
