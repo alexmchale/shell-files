@@ -141,6 +141,13 @@ function send-my-public-key {
   cat ~/.ssh/id_rsa.pub | ssh $1 'mkdir -p ~/.ssh ; cat - >> ~/.ssh/authorized_keys ; chmod -R go-rwx ~/.ssh'
 }
 
+function auto-ssh {
+  while true; do
+    ssh -t "$1" exec screen -R -DD
+    sleep 2
+  done
+}
+
 function hg-inout {
   printf $GREEN
   printf "===  Status  ===\n"
