@@ -26,6 +26,7 @@ set mouse-=a
 set noincsearch
 set number
 set go-=rL
+set wildignore+=*.o,1.8.7,.git,*.obj
 
 highlight LineNr guifg=#777777 guibg=#202020 ctermfg=grey ctermbg=darkgrey
 
@@ -34,19 +35,16 @@ noremap <C-K> <PageUp>
 
 syn sync fromstart
 
+" Automatically strip whitespace when saving
 autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufWritePre * :%s/\r//e
-
-map <S-Insert> <MiddleMouse>
-map! <S-Insert> <MiddleMouse>
-map!  <BackSpace>
 
 if has("gui_running")
   set guifont=Menlo:h14
   set background=dark
   colorscheme vividchalk
 else
-  colorscheme elflord
+  colorscheme fruity
 endif
 
 if has("autocmd")
@@ -59,23 +57,27 @@ let g:netrw_ftpmode = "binary"
 let g:netrw_win95ftp = 0
 let g:asmsyntax = "nasm"
 
-" map  :syn sync fromstart
-
+" Show end of line whitespace as an error
 match ErrorMsg / \+$/
 
-" custom copy'n'paste
+" Copy & paste
 vmap <C-c> :w! ~/.vbuf<CR>
 nmap <C-c> :.w! ~/.vbuf<CR>
 nmap <C-v> :r ~/.vbuf<CR>
 
+" Key support
+map!  <BackSpace>
+
+" Whitespace cleaning and saving
+vmap <C-o> :s/\s\+$//e<CR>:s/\r//e<CR>:s/\t/  /e<CR>:w<CR>
+nmap <C-o> :%s/\s\+$//e<CR>:%s/\r//e<CR>:%s/\t/  /e<CR>:w<CR>
+
+" Navigation
 nmap <C-n> :qa!<CR>
 nmap <C-m> :n<CR>
-
 nmap <C-y> :NERDTreeToggle<CR>
 nmap <C-u> :NERDTreeMirror<CR>
 nmap <C-i> :NERDTreeFind<CR>
-nmap <C-f> :FufFile<CR>
-nmap <C-d> :FufJumpList<CR>
 nmap <C-t> :CommandT<CR>
 nmap <S-t> :CommandTFlush<CR>
 
