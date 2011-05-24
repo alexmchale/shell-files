@@ -85,7 +85,7 @@ function rg {
   while [ "/" != "`pwd`" ]; do
 
     if [ -e ".git" ]; then
-      grep -n -s -r "$*" $GREP_SEARCH_PATH
+      grep -n -s -r "$*" --exclude="swfobject.js" --exclude="jquery-*.js" $GREP_SEARCH_PATH
       break
     fi
 
