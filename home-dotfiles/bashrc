@@ -205,8 +205,6 @@ export EDITOR="vim"
 export GEM_PRIVATE_KEY="$HOME/.ssh/gem-private_key.pem"
 export GEM_CERTIFICATE_CHAIN="$HOME/.ssh/gem-public_cert.pem"
 
-set -o noerrorbells
-
 if [ "`uname -s`" != "Darwin" ]; then
   export JAVA_HOME="/opt/java"
 fi
