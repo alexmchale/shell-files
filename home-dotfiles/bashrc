@@ -65,15 +65,12 @@ function cdg {
   done
 }
 
-# Provide a colorized, paged diff of the Hg repo.
-function hd {
-  hg cdiff $* | less -rFX
-}
-
+# Print a nice diff of unstaged files.
 function gd {
   git diff --color $* | less -rFX
 }
 
+# Print a nice diff of staged files.
 function gds {
   gd --staged $*
 }
@@ -85,7 +82,7 @@ function rg {
   while [ "/" != "`pwd`" ]; do
 
     if [ -e ".git" ]; then
-      grep -n -s -r "$*" $GREP_SEARCH_PATH
+      grep -n -s -r "$*" --exclude="swfobject.js" --exclude="jquery-*.js" $GREP_SEARCH_PATH
       break
     fi
 
@@ -141,28 +138,31 @@ function send-my-public-key {
   cat ~/.ssh/id_rsa.pub | ssh $1 'mkdir -p ~/.ssh ; cat - >> ~/.ssh/authorized_keys ; chmod -R go-rwx ~/.ssh'
 }
 
-function hg-inout {
-  printf $GREEN
-  printf "===  Status  ===\n"
-  printf $MAGENTA
-  hg status
-  printf "\n"
-
-  printf $GREEN
-  printf "=== Incoming ===\n"
-  printf $MAGENTA
-  hg incoming
-  printf "\n"
-
-  printf $GREEN
-  printf "=== Outgoing ===\n"
-  printf $MAGENTA
-  hg outgoing
-
-  printf $CLEAR
+function auto-ssh {
+  while true; do
+    ssh -t "$1" exec screen -R -DD
+    sleep 2
+  done
 }
 
-function hg-history { hg log -r $1:0 -f | less -r; }
+function stage {
+  local APP="$1"
+  local BRANCH="$2"
+
+  if [ -z "$BRANCH" ]; then
+    BRANCH="master"
+  fi
+
+  if [ -z "$APP" ]; then
+    echo "please specify an app"
+  else
+    git push github $BRANCH &&
+    git push staging $BRANCH:master &&
+    heroku rake db:migrate --app $APP &&
+    heroku restart --app $APP &&
+    heroku logs --tail --app $APP
+  fi
+}
 
 function add-paths { for p in "$@"; do export PATH="$p:$PATH"; done; }
 function add-home-paths { for p in "$@"; do export PATH="$HOME/$p:$PATH"; done; }
@@ -197,8 +197,6 @@ alias bullfrog='ssh -t alexmchale@anticlever.com screen -D -RR'
 alias faust='ssh -t alexmchale@home.anticlever.com screen -D -RR'
 alias bullfrog-socks='ssh -fND localhost:8099 alexmchale@swankdb.com'
 alias fvim='mvim -S ~/.vim/fullscreen.vim'
-alias hl='hg log -l 10'
-alias hs='hg status'
 alias resume='exec screen -D -RR'
 alias rm.orig="find . -name '*.orig' -exec rm -i {} \\;"
 alias la="ls -a"
