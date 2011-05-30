@@ -36,8 +36,8 @@ noremap <C-K> <PageUp>
 syn sync fromstart
 
 " Automatically strip whitespace when saving
-autocmd BufWritePre * :%s/\s\+$//e
-autocmd BufWritePre * :%s/\r//e
+"autocmd BufWritePre * :%s/\s\+$//e
+"autocmd BufWritePre * :%s/\r//e
 
 if has("gui_running")
   set guifont=Menlo:h14
