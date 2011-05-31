@@ -200,6 +200,7 @@ alias fvim='mvim -S ~/.vim/fullscreen.vim'
 alias resume='exec screen -D -RR'
 alias rm.orig="find . -name '*.orig' -exec rm -i {} \\;"
 alias la="ls -a"
+alias gitx="open /Applications/GitX.app ."
 
 export EDITOR="vim"
 export GEM_PRIVATE_KEY="$HOME/.ssh/gem-private_key.pem"
