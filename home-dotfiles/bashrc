@@ -154,13 +154,44 @@ function stage {
   fi
 
   if [ -z "$APP" ]; then
-    echo "please specify an app"
+    echo "stage [app]"
+    echo "stage [app] [branch]"
   else
     git push github $BRANCH &&
     git push staging $BRANCH:master &&
     heroku rake db:migrate --app $APP &&
     heroku restart --app $APP &&
     heroku logs --tail --app $APP
+  fi
+}
+
+# Clone a Heroku db from one instance to another using a local temporary
+# PostgreSQL database.
+function clone_h2h {
+  local SRC="$1"
+  local DST="$2"
+  local TABLES="$3"
+
+  if [ -z "$SRC" ] || [ -z "$DST" ]; then
+    echo "clone_h2h [source app] [destination app]"
+  else
+    # Generate a temporary database name.
+    local TEMPFILE=`mktemp -t DBCLONE`
+    local DB=$(basename $TEMPFILE)
+    rm -rf $TEMPFILE
+    local URL="postgres://localhost/$DB"
+
+    createdb $DB
+
+    if [ -z "$TABLES" ]; then
+      heroku db:pull $URL --app $SRC --confirm $SRC
+      heroku db:push $URL --app $DST --confirm $DST
+    else
+      heroku db:pull --tables $TABLES $URL --app $SRC --confirm $SRC
+      heroku db:push --tables $TABLES $URL --app $DST --confirm $DST
+    fi
+
+    dropdb $DB
   fi
 }
 
