@@ -15,7 +15,7 @@
          WHITE="\033[1;37m"
     LIGHT_GRAY="\033[0;37m"
 
-GREP_SEARCH_PATH="Gemfile app bin config lib test public spec features"
+GREP_SEARCH_PATH="Gemfile app bin config db/schema.rb db/migrate lib test public spec features"
 
 function current-time {
   echo -n `date +"%l:%M"`
