@@ -45,9 +45,9 @@ syn sync fromstart
 "autocmd BufWritePre * :%s/\r//e
 
 if has("gui_running")
-  set guifont=Menlo:h14
+  set guifont=Inconsolata:h14
   set background=dark
-  colorscheme vividchalk
+  colorscheme solarized
 else
   colorscheme fruity
 endif
@@ -72,6 +72,7 @@ nmap <C-v> :r ~/.vbuf<CR>
 
 " Key support
 map!  <BackSpace>
+map ; :
 
 " Whitespace cleaning and saving
 vmap <C-o> :s/\s\+$//e<CR>:s/\r//e<CR>:s/\t/  /e<CR>:w<CR>
@@ -89,8 +90,8 @@ nmap <S-t> :CommandTFlush<CR>
 let Tlist_Use_Right_Window = 1
 let Tlist_Show_One_File = 1
 
-set guifont=Menlo:h15.00
-
 augroup mkd
   autocmd BufRead *.mkd set ai formatoptions=tcroqn2 comments=n:>
 augroup END
+
+autocmd BufNewFile,BufRead *.lib set filetype=c
