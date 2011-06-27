@@ -47,6 +47,7 @@ syn sync fromstart
 if has("gui_running")
   set guifont=Inconsolata:h14
   set background=dark
+  set showtabline=2
   colorscheme solarized
 else
   colorscheme fruity
