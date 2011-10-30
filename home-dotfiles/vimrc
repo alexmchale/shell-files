@@ -48,8 +48,8 @@ if has("gui_running")
   set guifont=Inconsolata:h14
   set showtabline=2
   set guioptions-=T
-  set background=light
-  colorscheme github
+  set background=dark
+  colorscheme vividchalk
 else
   colorscheme fruity
 endif

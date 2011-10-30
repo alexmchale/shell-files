@@ -241,6 +241,8 @@ alias la="ls -a"
 alias gitx="open /Applications/GitX.app ."
 alias bake="bundle exec rake"
 alias be="bundle exec"
+alias b="bundle"
+alias bundle="ruby -S bundle"
 
 export EDITOR="vim"
 export GEM_PRIVATE_KEY="$HOME/.ssh/gem-private_key.pem"
