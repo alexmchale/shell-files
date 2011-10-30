@@ -48,6 +48,10 @@ function rvm_prompt {
   [ "$full" != "" ] && echo "$full"
 }
 
+function rbenv_prompt {
+  rbenv version | cut -d' ' -f1
+}
+
 # Move up the directory tree until we're in the root of a git project.
 function cdg {
   while [ 1 ]; do
@@ -205,7 +209,7 @@ add-home-paths .rbenv/bin .ruby-build/bin .scripts .git-extras/bin Homebrew/bin 
 eval "$(rbenv init -)"
 
 # Set the prompts.
-export PS1="\[$LIGHT_GREEN\]\$(rvm_prompt)\$(repo_prompt) \[$LIGHT_YELLOW\]\w\[$BLUE\]]\[$BLUE\]\$ \[$CLEAR\]"
+export PS1="\[$LIGHT_GREEN\]\$(rbenv_prompt)\$(repo_prompt) \[$LIGHT_YELLOW\]\w\[$BLUE\]]\[$BLUE\]\$ \[$CLEAR\]"
 export PS2="> "
 export PS4="+ "
 
