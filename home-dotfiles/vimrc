@@ -46,10 +46,10 @@ syn sync fromstart
 
 if has("gui_running")
   set guifont=Inconsolata:h14
-  set background=dark
   set showtabline=2
   set guioptions-=T
-  colorscheme solarized
+  set background=light
+  colorscheme github
 else
   colorscheme fruity
 endif
@@ -97,3 +97,4 @@ augroup mkd
 augroup END
 
 autocmd BufNewFile,BufRead *.lib set filetype=c
+autocmd BufEnter * stopinsert
