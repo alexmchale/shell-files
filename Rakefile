@@ -2,8 +2,17 @@ require "fileutils"
 
 include FileUtils
 
+def install_or_clone(git, path)
+  path = File.expand_path(path)
+  if File.exists? path
+    system "cd #{path} ; git pull origin master"
+  else
+    system "git clone #{git} #{path}"
+  end
+end
+
 desc "Install all files"
-task :install => [ :dotfiles, :rbenv ] do
+task :install => [ :dotfiles, :rbenv, :rubybuild ] do
   cd File.expand_path "~/.vimbundles/command-t/ruby/command-t"
   sh "/usr/bin/ruby extconf.rb"
   sh "make clean && make"
@@ -32,12 +41,12 @@ end
 
 desc "Install/Update rbenv"
 task :rbenv do
-  rbenv = File.expand_path("~/.rbenv")
-  if File.exists? rbenv
-    system "cd #{rbenv} ; git pull origin master"
-  else
-    system "git clone https://github.com/sstephenson/rbenv.git #{rbenv}"
-  end
+  install_or_clone "https://github.com/sstephenson/rbenv.git", "~/.rbenv"
+end
+
+desc "Install/Update ruby-build"
+task :rubybuild do
+  install_or_clone "https://github.com/sstephenson/ruby-build.git", "~/.ruby-build"
 end
 
 desc "Install RVM"
