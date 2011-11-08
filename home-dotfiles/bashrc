@@ -244,6 +244,7 @@ alias be="bundle exec"
 alias b="bundle"
 alias bundle="ruby -S bundle"
 alias wrangle='/usr/bin/ruby ~/Dropbox/Projects/personal/ep_wrangler/bin/wrangle'
+alias autotest="bundle && RAILS_ENV=test bundle exec rake db:migrate && RAILS_ENV=test bundle exec autotest"
 
 export EDITOR="vim"
 export GEM_PRIVATE_KEY="$HOME/.ssh/gem-private_key.pem"
