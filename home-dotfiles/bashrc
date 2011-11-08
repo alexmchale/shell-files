@@ -255,6 +255,3 @@ fi
 
 # Load privaterc if it is available.
 [[ -s "$HOME/.privaterc" ]] && source "$HOME/.privaterc"
-
-# Load RVM if it is available.
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
