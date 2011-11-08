@@ -243,6 +243,7 @@ alias bake="bundle exec rake"
 alias be="bundle exec"
 alias b="bundle"
 alias bundle="ruby -S bundle"
+alias wrangle='/usr/bin/ruby ~/Dropbox/Projects/personal/ep_wrangler/bin/wrangle'
 
 export EDITOR="vim"
 export GEM_PRIVATE_KEY="$HOME/.ssh/gem-private_key.pem"
