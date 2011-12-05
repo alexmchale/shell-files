@@ -37,3 +37,6 @@
 [submodule "home-dotfiles/vimbundles/command-t"]
 	path = home-dotfiles/vimbundles/command-t
 	url = git://git.wincent.com/command-t.git
+[submodule "home-dotfiles/vimbundles/zencoding"]
+	path = home-dotfiles/vimbundles/zencoding
+	url = https://github.com/mattn/zencoding-vim.git
