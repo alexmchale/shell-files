@@ -57,10 +57,11 @@ defaults write com.apple.Mail DisableReplyAnimations -bool true
 defaults write com.apple.Mail DisableSendAnimations -bool true
 
 # Disable Resume system-wide
-#defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
-
-# Enable Dashboard dev mode (allows keeping widgets on the desktop)
-#defaults write com.apple.dashboard devmode -bool true
+defaults write com.apple.Safari NSQuitAlwaysKeepsWindows -bool false
+defaults write com.apple.Terminal NSQuitAlwaysKeepsWindows -bool false
+defaults write com.apple.QuickTimePlayerX NSQuitAlwaysKeepsWindows -bool false
+defaults write com.google.Chrome NSQuitAlwaysKeepsWindows -bool false
+defaults write com.apple.Terminal NSQuitAlwaysKeepsWindows -bool false
 
 # Reset Launchpad
 rm ~/Library/Application\ Support/Dock/*.db
@@ -72,10 +73,12 @@ chflags nohidden ~/Library
 sudo tmutil disablelocal
 
 # Kill affected applications
-for app in Safari Finder Dock Mail; do killall "$app"; done
+for app in Safari Finder Dock Mail; do killall "$app" 2> /dev/null; done
 
 # Fix for the ancient UTF-8 bug in QuickLook (http://mths.be/bbo)
 echo "0x08000100:0" > ~/.CFUserTextEncoding
 
 # Configure TextMate to open with Markdown by default.
 defaults write com.macromates.textmate OakDefaultLanguage 0A1D9874-B448-11D9-BD50-000D93B6E43C
+
+echo "Configuration complete!"

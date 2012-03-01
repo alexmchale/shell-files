@@ -19,6 +19,21 @@ if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
 
 GREP_SEARCH_PATH="Gemfile app bin config db/schema.rb db/migrate lib test public spec features"
 
+# Install all of the basic RubyGems that should be everywhere.
+function gemb {
+  gem install bundler --pre
+  gem install heroku taps powder awesome_print wirble
+}
+
+# Remove all existing RubyGems and install just what the current app needs.
+function rebundle {
+  gem list | cut -f1 -d' ' | xargs gem uninstall -aIx
+  gemb
+  rbenv rehash
+  bundle
+  rbenv rehash
+}
+
 function current-time {
   echo -n `date +"%l:%M"`
 }
@@ -216,6 +231,11 @@ else
   alias ls="ls $GNU_LS_OPTIONS"
 fi
 
+# Configure Vim alias for MacOSX.
+if [ -e "$HOME/Applications/MacVim.app/Contents/MacOS/Vim" ]; then
+  alias vim="$HOME/Applications/MacVim.app/Contents/MacOS/Vim"
+fi
+
 # Configure aliases.
 alias gems='ruby -S gem search --remote'
 alias gemi='ruby -S gem install --no-ri --no-rdoc --remote'
@@ -241,6 +261,8 @@ alias bundle="ruby -S bundle"
 alias wrangle='/usr/bin/ruby ~/Dropbox/Projects/personal/ep_wrangler/bin/wrangle'
 alias autotest="bundle && RAILS_ENV=test bundle exec rake db:migrate && RAILS_ENV=test bundle exec autotest"
 alias zeus="ssh zeus.local -t exec screen -D -RR"
+alias cuke="RAILS_ENV=test bundle exec cucumber"
+alias migrate-test="RAILS_ENV=test bake db:migrate"
 
 # Display hostname.
 which figlet > /dev/null 2>&1 && echo && figlet -f slant `hostname` && echo

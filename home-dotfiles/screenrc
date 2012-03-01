@@ -93,13 +93,12 @@ termcapinfo xterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
 # ------------------------------------------------------------------------------
 # STARTUP SCREENS
 # ------------------------------------------------------------------------------
-screen -t "bash9" 9 bash
-screen -t "bash8" 8 bash
-screen -t "bash7" 7 bash
-screen -t "bash6" 6 bash
-screen -t "bash5" 5 bash
-screen -t "bash4" 4 bash
-screen -t "bash3" 3 bash
-screen -t "bash2" 2 bash
-screen -t "bash1" 1 bash
-
+screen -t "bash9" 9 bash -l
+screen -t "bash8" 8 bash -l
+screen -t "bash7" 7 bash -l
+screen -t "bash6" 6 bash -l
+screen -t "bash5" 5 bash -l
+screen -t "bash4" 4 bash -l
+screen -t "bash3" 3 bash -l
+screen -t "bash2" 2 bash -l
+screen -t "bash1" 1 bash -l
