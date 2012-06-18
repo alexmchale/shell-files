@@ -1,5 +1,3 @@
-call pathogen#runtime_prepend_subdirectories(expand('~/.vimbundles'))
-
 set nocompatible        " enable VIM features
 set ch=1
 set mousehide           " hide the mouse when typing
@@ -27,23 +25,43 @@ set noincsearch
 set number
 set go-=rL
 set wildignore+=*.o,1.8.7,.git,*.obj
+set cursorline
+
+" Vundle
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'kien/ctrlp.vim'
+Bundle 'mattn/gist-vim'
+Bundle 'mattn/zencoding-vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-haml'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-vividchalk'
+Bundle 'tsaleh/vim-align'
+Bundle 'tsaleh/vim-matchit'
+filetype plugin indent on
 
 " Disable all bells
 set vb t_vb=""
 autocmd VimEnter * set vb t_vb=
 au! GuiEnter * set vb t_vb=
 
-highlight LineNr guifg=#777777 guibg=#202020 ctermfg=grey ctermbg=darkgrey
-
-noremap <C-J> <PageDown>
-noremap <C-K> <PageUp>
-
-syn sync fromstart
-
 " Automatically strip whitespace when saving
 "autocmd BufWritePre * :%s/\s\+$//e
 "autocmd BufWritePre * :%s/\r//e
 "autocmd BufWritePre * :%s/\t/  /e
+
+" Show end of line whitespace as an error
+match ErrorMsg / \+$/
+
+" Whitespace cleaning and saving
+vmap <C-o> :s/\s\+$//e<CR>:s/\r//e<CR>:s/\t/  /e<CR>:w<CR>
+nmap <C-o> :%s/\s\+$//e<CR>:%s/\r//e<CR>:%s/\t/  /e<CR>:w<CR>
 
 if has("gui_running")
   set guifont=Inconsolata:h14
@@ -55,49 +73,52 @@ else
   colorscheme fruity
 endif
 
-if has("autocmd")
-  filetype plugin indent on
-endif
-
 syntax on
 let c_syntax_for_h = 1
 let g:netrw_ftpmode = "binary"
 let g:netrw_win95ftp = 0
 let g:asmsyntax = "nasm"
 
-" Show end of line whitespace as an error
-match ErrorMsg / \+$/
+" Page controls
+noremap <C-J> <PageDown>
+noremap <C-K> <PageUp>
 
 " Copy & paste
 vmap <C-c> :w! ~/.vbuf<CR>
 nmap <C-c> :.w! ~/.vbuf<CR>
 nmap <C-v> :r ~/.vbuf<CR>
 
+" Define a command for switching Ruby hashes to 1.9 syntax
+command! -bar -range=% NotRocket :<line1>,<line2>s/:\(\w\+\)\s*=>/\1:/e
+
 " Key support
 map!  <BackSpace>
 map ; :
-
-" Whitespace cleaning and saving
-vmap <C-o> :s/\s\+$//e<CR>:s/\r//e<CR>:s/\t/  /e<CR>:w<CR>
-nmap <C-o> :%s/\s\+$//e<CR>:%s/\r//e<CR>:%s/\t/  /e<CR>:w<CR>
 
 " Navigation
 nmap <C-n> :qa!<CR>
 nmap <C-m> :n<CR>
 nmap <C-y> :NERDTreeToggle<CR>
 nmap <C-u> :NERDTreeMirror<CR>
-nmap <C-t> :CommandTFlush<CR>:CommandT<CR>
-nmap <S-t> :CommandTFlush<CR>
 
 " Editing
 nmap <C-i> ciw
 
+" Configure tag list
 let Tlist_Use_Right_Window = 1
 let Tlist_Show_One_File = 1
 
+" Custom auto actions
 augroup mkd
   autocmd BufRead *.mkd set ai formatoptions=tcroqn2 comments=n:>
 augroup END
-
 autocmd BufNewFile,BufRead *.lib set filetype=c
 autocmd BufEnter * stopinsert
+
+" Custom Highlighting
+highlight LineNr guifg=#777777 guibg=#202020 ctermfg=grey ctermbg=darkgrey
+highlight CursorLine guibg=#202020
+highlight CursorColumn guibg=#202020
+
+" Resync colors
+syn sync fromstart
