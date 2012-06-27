@@ -6,4 +6,4 @@ being installed.
 
 === Install only VIM support files ===
 
-curl https://raw.github.com/alexmchale/shell-files/master/configure-vim.sh | sh
+    curl https://raw.github.com/alexmchale/shell-files/master/configure-vim.sh | sh
