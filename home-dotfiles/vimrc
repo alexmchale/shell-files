@@ -44,6 +44,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-vividchalk'
 Bundle 'tsaleh/vim-align'
 Bundle 'tsaleh/vim-matchit'
+Bundle '2072/PHP-Indenting-for-VIm'
 filetype plugin indent on
 
 " Disable all bells
