@@ -1,9 +1,11 @@
+" Alex's VIM
+
 set nocompatible        " enable VIM features
 set ch=1
 set mousehide           " hide the mouse when typing
 set shiftwidth=2
 set softtabstop=2
-set tabstop=2
+set tabstop=24
 set smartindent
 set expandtab
 set ruler
@@ -26,6 +28,8 @@ set number
 set go-=rL
 set wildignore+=*.o,1.8.7,.git,*.obj
 set cursorline
+set scrolloff=10
+set modelines=5
 
 " Vundle
 filetype off
@@ -45,6 +49,7 @@ Bundle 'tpope/vim-vividchalk'
 Bundle 'tsaleh/vim-align'
 Bundle 'tsaleh/vim-matchit'
 Bundle '2072/PHP-Indenting-for-VIm'
+Bundle 'airblade/vim-gitgutter'
 filetype plugin indent on
 
 " Disable all bells
@@ -65,13 +70,16 @@ vmap <C-o> :s/\s\+$//e<CR>:s/\r//e<CR>:s/\t/  /e<CR>:w<CR>
 nmap <C-o> :%s/\s\+$//e<CR>:%s/\r//e<CR>:%s/\t/  /e<CR>:w<CR>
 
 if has("gui_running")
-  set guifont=Inconsolata:h14
+  set guifont=Inconsolata:h16
   set showtabline=2
   set guioptions-=T
   set background=dark
   colorscheme vividchalk
 else
-  colorscheme fruity
+  set t_Co=256
+  set t_te=
+  set t_ti=
+  colorscheme vividchalk
 endif
 
 syntax on
@@ -123,3 +131,12 @@ highlight CursorColumn guibg=#202020
 
 " Resync colors
 syn sync fromstart
+
+" Configure ctrlp.vim
+let g:ctrlp_custom_ignore = {
+  \ 'dir': '\v[\/](\.(git|hg|svn))|(public|tmp)$',
+  \ 'file': '\v\.(exe|so|dll)$' }
+
+" Change the gutter color.
+highlight LineNr term=bold cterm=NONE ctermfg=White ctermbg=Black gui=NONE guifg=#777777 guibg=#202020
+highlight clear SignColumn
