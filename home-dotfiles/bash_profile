@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
 
 # Define the ANSI colors.
@@ -21,7 +23,7 @@ GREP_SEARCH_PATH="Gemfile app bin config db/schema.rb db/migrate lib test public
 
 # Install all of the basic RubyGems that should be everywhere.
 function gemb {
-  gem install bundler --pre
+  gem install bundler
   gem install heroku taps powder awesome_print wirble
 }
 
@@ -88,7 +90,7 @@ function cdg {
 
 # Print a nice diff of unstaged files.
 function gd {
-  git diff --color $* | less -rFX
+  git diff --color -M $* | less -rFX
 }
 
 # Print a nice diff of staged files.
@@ -151,6 +153,29 @@ function rg-mvim {
   cd $STARTED_IN
 }
 
+# Search the rails project you're in and vim all the matches.
+function rg-vim {
+  STARTED_IN="`pwd`"
+
+  while [ "/" != "`pwd`" ]; do
+
+    if [ -e ".git" ]; then
+      grep -n -s -r "$*" $GREP_SEARCH_PATH
+      grep -n -s -r -l "$*" $GREP_SEARCH_PATH | xargs -n 1 vim
+      break
+    fi
+
+    cd ..
+
+  done
+
+  cd $STARTED_IN
+}
+
+function prepare-test-db {
+  RAILS_ENV=test bundle exec rake db:drop && RAILS_ENV=test bundle exec rake db:create && bundle exec rake db:migrate && bundle exec rake db:test:prepare
+}
+
 function http-tgz {
   curl "$1" | tar xvz
 }
@@ -166,21 +191,22 @@ function auto-ssh {
   done
 }
 
-function stage {
-  local APP="$1"
+function deploy {
+  local REMOTE="$1"
   local BRANCH="$2"
+  local APP="`git remote -v | grep '(push)' | grep $REMOTE | perl -p -e 's/.*\sgit@.*:(.*)\.git\s.*/\1/g'`"
 
   if [ -z "$BRANCH" ]; then
     BRANCH="master"
   fi
 
   if [ -z "$APP" ]; then
-    echo "stage [app]"
-    echo "stage [app] [branch]"
+    echo "deploy [remote]"
+    echo "deploy [remote] [branch]"
   else
-    git push github $BRANCH &&
-    git push staging $BRANCH:master &&
-    heroku rake db:migrate --app $APP &&
+    git push origin $BRANCH &&
+    git push $REMOTE $BRANCH:master &&
+    heroku run rake db:migrate --app $APP &&
     heroku restart --app $APP &&
     heroku logs --tail --app $APP
   fi
@@ -216,8 +242,84 @@ function clone_h2h {
   fi
 }
 
+# Push the local copy of GA out to my VM.
+function ga_all {
+  local SERVER="root@amchale.drh.net"
+
+  pushd ~/Dropbox/Projects/drh
+  rsync -avz -e ssh greenarrow-mta greenarrow-studio --exclude=".git" "$SERVER:/usr/local/src/"
+  ssh $SERVER 'cd /usr/local/src/greenarrow-mta/webapp ; make install-h'
+  popd
+}
+
+function ga_mta_h {
+  local SERVER="root@amchale.drh.net"
+
+  pushd ~/Dropbox/Projects/drh/greenarrow-mta/webapp
+  rsync -avz -e ssh --exclude=".git" h "$SERVER:/usr/local/src/greenarrow-mta/webapp/"
+  ssh $SERVER 'cd /usr/local/src/greenarrow-mta/webapp ; make install-h'
+  popd
+
+  open "http://amchale.drh.net/greenarrowadmin"
+}
+
+function ga_mta_rails {
+  local SERVER="root@amchale.drh.net"
+
+  cd ~/drh
+  rsync -avz -e ssh greenarrow-mta --exclude=".git" "$SERVER:/usr/local/src/"
+  ssh $SERVER 'killall -9 ruby'
+  ssh $SERVER 'cd /usr/local/src/greenarrow-mta/webapp ; make install-h'
+  ssh $SERVER 'cd /usr/local/src/greenarrow-mta/rails && bundle && bundle exec rake db:migrate && bundle exec unicorn -p 3000'
+}
+
+function t {
+  FILES="$*"
+  SEARCH=`echo $FILES | grep -oEi '^/([^ /]*)/$' | cut -d/ -f 2`
+
+  if [ ! -z "$SEARCH" ]; then
+    FILES=`find test -name '*_test.rb' -type f | grep "$SEARCH"`
+    RAILS_ENV=test bundle exec turn -D -I test $FILES
+  elif [ -z "$FILES" ]; then
+    RAILS_ENV=test bundle exec turn -D -I test test/unit/ test/functional/
+  else
+    RAILS_ENV=test bundle exec turn -R -I test $FILES
+  fi
+}
+
+function tn {
+  NAME="$*"
+
+  RAILS_ENV=test bundle exec turn -R -I test -n "$NAME" test/unit/ test/functional/
+}
+
+function sc {
+  ssh -t "$1" exec screen -D -RR
+}
+
+function clone_staging_db {
+  db="greenarrow-studio_development"
+  echo "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='$db'" | psql
+  dropdb $db &&
+  createdb $db &&
+  ssh root@staging.drh.net pg_dump --no-owner --no-privileges --no-acl -U greenarrow greenarrow \> alex-ga.dmp &&
+  scp -C root@staging.drh.net:alex-ga.dmp /tmp/ga.dmp &&
+  perl -p -i -e "s/ offset integer/ offset1 integer/g" /tmp/ga.dmp &&
+  perl -p -i -e "s/\\+ offset\\)/+ offset1)/g" /tmp/ga.dmp &&
+  perl -p -i -e "s/STRICT offset FROM/STRICT offset1 FROM/g" /tmp/ga.dmp &&
+  psql $db < /tmp/ga.dmp &&
+  rm -f /tmp/ga.dmp
+}
+
+function send-studio-changes-to {
+  local HOST="$1"
+  cdg
+  git status -s | cut -c 4- | xargs -I {} scp {} $HOST:/var/hvmail/studio/{}
+  ssh $HOST svc -t /service/hvmail-httpd /service/hvmail-studio-worker
+}
+
 # Set the prompts.
-export PS1="\[$LIGHT_GREEN\]\$(rbenv_prompt)\$(repo_prompt) \[$LIGHT_YELLOW\]\w\[$BLUE\]]\[$BLUE\]\$ \[$CLEAR\]"
+export PS1="\[\033[G\]\[$BLUE\][\[$LIGHT_GREEN\]\h \$(rbenv_prompt)\$(repo_prompt) \[$LIGHT_YELLOW\]\w\[$BLUE\]]\[$BLUE\]\$ \[$CLEAR\]"
 export PS2="> "
 export PS4="+ "
 
@@ -259,10 +361,19 @@ alias be="bundle exec"
 alias b="bundle"
 alias bundle="ruby -S bundle"
 alias wrangle='/usr/bin/ruby ~/Dropbox/Projects/personal/ep_wrangler/bin/wrangle'
-alias autotest="bundle && RAILS_ENV=test bundle exec rake db:migrate && RAILS_ENV=test bundle exec autotest"
+alias autotest="bundle && bake db:migrate && bake db:test:prepare && RAILS_ENV=test bake db:schema:load && be autotest"
 alias zeus="ssh zeus.local -t exec screen -D -RR"
-alias cuke="RAILS_ENV=test bundle exec cucumber"
+alias avm="ssh root@amchale.drh.net -t exec screen -D -RR"
+alias cuke="RAILS_ENV=test bundle exec cucumber --format CucumberSpinner::ProgressBarFormatter --require features"
+alias cuke-modified="cuke \`git status --untracked-files --porcelain | grep '.feature$' | cut -b 4-\`"
 alias migrate-test="RAILS_ENV=test bake db:migrate"
+alias mvim-merge-conflicts="grep -l -r '<<<<<<<' $GREP_SEARCH_PATH | xargs grep -l -r '>>>>>>>' | xargs grep -l -r '=======' | xargs mvim -p"
+alias force-update-amchale="cd ~/src/drh/studio ; git push amchale-dev ; ssh root@amchale.drh.net 'cd /usr/local/src/greenarrow-studio-next && git checkout . && git reset --hard && rake db:migrate && rake assets:precompile && svc -t /service/hvmail-httpd && svc -t /service/hvmail-studio-worker'"
+alias pg="psql greenarrow-studio_development"
+alias zeus-budget="ssh zeus.local -t exec screen -D -RR -S budget"
+alias zeus-ga="ssh zeus.local -t exec screen -D -RR -S ga"
+alias ssh-drh="ssh -t amchale@vpn.drh.net exec sudo /usr/bin/ssh -i /home/greenarrow_rw/.ssh/id_rsa"
+alias vim-migration="vim \`git status -s db/migrate | cut -b 4-\`"
 
 # Display hostname.
-which figlet > /dev/null 2>&1 && echo && figlet -f slant `hostname` && echo
+#which figlet > /dev/null 2>&1 && echo && figlet -f slant `hostname -s` && echo
