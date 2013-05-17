@@ -80,5 +80,3 @@ echo "0x08000100:0" > ~/.CFUserTextEncoding
 
 # Configure TextMate to open with Markdown by default.
 defaults write com.macromates.textmate OakDefaultLanguage 0A1D9874-B448-11D9-BD50-000D93B6E43C
-
-echo "Configuration complete!"
