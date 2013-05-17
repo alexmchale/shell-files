@@ -196,6 +196,17 @@ rm -rf /tmp/alexmchale-shell-files*
 
 
 
+## Install Vim plugins ##
+
+echo "Installing vundler."
+mkdir -p ~/.vim/bundle
+cd ~/.vim/bundle
+clone_or_update "vundle" "https://github.com/gmarik/vundle.git"
+cd ~
+vim +BundleInstall +qall
+
+
+
 # ## Install rbenv ##
 #
 # announce "Installing rbenv"
