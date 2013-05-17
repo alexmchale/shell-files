@@ -55,7 +55,7 @@ if [ "$OS" = "Darwin" ]; then
   ## Configure Xcode for local development ##
 
   announce "Configuring Xcode"
-  
+
   if [ -d /Applications/Xcode.app ]; then
     echo "Xcode is installed!"
     # sudo "/usr/bin/xcode-select" -switch "/Applications/Xcode.app/Contents/Developer"
@@ -66,30 +66,30 @@ if [ "$OS" = "Darwin" ]; then
 
 
   ## Install or update Homebrew ##
-  
+
   announce "Setting up Homebrew"
-  
+
   if [ -x /usr/local/bin/brew ]; then
     brew update
   else
     /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
   fi
-  
-  
+
+
   ## Install various Homebrew apps ##
-  
+
   announce "Installing tools from Homebrew"
-  
+
   brew_if_missing coreutils
   brew_if_missing wget
   brew_if_missing mysql
   brew_if_missing postgresql
-  
-  
+
+
   ## Install MacVim ##
-  
+
   announce "Installing MacVim"
-  
+
   if [ ! -d /Applications/MacVim.app ] || [ ! -x /usr/local/bin/mvim ]; then
     cd /tmp
     echo $MACVIM_URL
@@ -99,12 +99,12 @@ if [ "$OS" = "Darwin" ]; then
     cp -a MacVim.app /Applications/
     cp -a mvim /usr/local/bin/
   fi
-  
-  
+
+
   ## Configure Lion options ##
 
   announce "Configuring OSX Lion"
-  
+
   # Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
   defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
   # Enable the 2D Dock
@@ -168,7 +168,7 @@ if [ "$OS" = "Darwin" ]; then
   sudo sysctl -w net.inet.tcp.slowstart_flightsize=10
   # Disable iCloud being the default for save dialogs.
   defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
-  
+
 fi
 
 
