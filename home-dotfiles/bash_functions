@@ -299,6 +299,14 @@ function send-studio-changes-to {
   ssh $HOST svc -t /service/hvmail-httpd /service/hvmail-studio-worker
 }
 
+function rails {
+  if [ -x script/rails ]; then
+    script/rails $*
+  else
+    /usr/bin/env rails $*
+  fi
+}
+
 # Configure ls.
 GNU_LS_OPTIONS="--color=auto -Fh"
 if [ -f "$HOME/Homebrew/bin/gls" ]; then
@@ -324,9 +332,6 @@ alias resume='screen -D -RR'
 alias apts='sudo apt-cache search'
 alias apti='sudo apt-get install'
 alias tt='tt++ ~/.tintinrc'
-alias bullfrog='ssh -t alexmchale@anticlever.com screen -D -RR'
-alias faust='ssh -t alexmchale@home.anticlever.com screen -D -RR'
-alias bullfrog-socks='ssh -fND localhost:8099 alexmchale@swankdb.com'
 alias fvim='mvim -S ~/.vim/fullscreen.vim'
 alias resume='exec screen -D -RR'
 alias rm.orig="find . -name '*.orig' -exec rm -i {} \\;"
@@ -342,7 +347,6 @@ alias zeus="ssh zeus.local -t exec screen -D -RR"
 alias avm="ssh root@amchale.drh.net -t exec screen -D -RR"
 alias cuke="RAILS_ENV=test bundle exec cucumber --format CucumberSpinner::ProgressBarFormatter --require features"
 alias cuke-modified="cuke \`git status --untracked-files --porcelain | grep '.feature$' | cut -b 4-\`"
-alias migrate-test="RAILS_ENV=test bake db:migrate"
 alias mvim-merge-conflicts="grep -l -r '<<<<<<<' $GREP_SEARCH_PATH | xargs grep -l -r '>>>>>>>' | xargs grep -l -r '=======' | xargs mvim -p"
 alias force-update-amchale="cd ~/src/drh/studio ; git push amchale-dev ; ssh root@amchale.drh.net 'cd /usr/local/src/greenarrow-studio-next && git checkout . && git reset --hard && rake db:migrate && rake assets:precompile && svc -t /service/hvmail-httpd && svc -t /service/hvmail-studio-worker'"
 alias pg="psql greenarrow-studio_development"
