@@ -50,6 +50,7 @@ Bundle 'tsaleh/vim-align'
 Bundle 'tsaleh/vim-matchit'
 Bundle '2072/PHP-Indenting-for-VIm'
 Bundle 'airblade/vim-gitgutter'
+Bundle 'mileszs/ack.vim'
 filetype plugin indent on
 
 " Disable all bells
