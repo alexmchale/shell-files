@@ -142,6 +142,7 @@ if [ "$OS" = "Darwin" ]; then
   defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
   # Enable Safari’s debug menu
   defaults write com.apple.Safari IncludeDebugMenu -bool true
+  defaults write com.apple.Safari IncludeDevelopMenu -bool true
   # Remove useless icons from Safari’s bookmarks bar
   defaults write com.apple.Safari ProxiesInBookmarksBar "()"
   # Disable Safari sending what we type in the address bar to Google.
