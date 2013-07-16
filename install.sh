@@ -144,6 +144,8 @@ if [ "$OS" = "Darwin" ]; then
   defaults write com.apple.Safari IncludeDebugMenu -bool true
   # Remove useless icons from Safari’s bookmarks bar
   defaults write com.apple.Safari ProxiesInBookmarksBar "()"
+  # Disable Safari sending what we type in the address bar to Google.
+  defaults write com.apple.Safari SuppressSearchSuggestions -boolean YES
   # Disable send and reply animations in Mail.app
   defaults write com.apple.Mail DisableReplyAnimations -bool true
   defaults write com.apple.Mail DisableSendAnimations -bool true
