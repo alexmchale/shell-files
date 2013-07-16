@@ -110,9 +110,9 @@ if [ "$OS" = "Darwin" ]; then
   # Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
   defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
   # Enable the 2D Dock
-  defaults write com.apple.dock no-glass -bool true
+  #defaults write com.apple.dock no-glass -bool true
   # Disable menu bar transparency
-  defaults write -g AppleEnableMenuBarTransparency -bool false
+  #defaults write -g AppleEnableMenuBarTransparency -bool false
   # Expand save panel by default
   defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
   # Expand print panel by default
@@ -145,7 +145,7 @@ if [ "$OS" = "Darwin" ]; then
   # Remove useless icons from Safari’s bookmarks bar
   defaults write com.apple.Safari ProxiesInBookmarksBar "()"
   # Disable Safari sending what we type in the address bar to Google.
-  defaults write com.apple.Safari SuppressSearchSuggestions -boolean YES
+  defaults write com.apple.Safari SuppressSearchSuggestions -bool true
   # Disable send and reply animations in Mail.app
   defaults write com.apple.Mail DisableReplyAnimations -bool true
   defaults write com.apple.Mail DisableSendAnimations -bool true
@@ -156,7 +156,7 @@ if [ "$OS" = "Darwin" ]; then
   defaults write com.google.Chrome NSQuitAlwaysKeepsWindows -bool false
   defaults write com.apple.Terminal NSQuitAlwaysKeepsWindows -bool false
   # Disable dock auto-hide delay
-  defaults write com.apple.Dock autohide -boolean YES
+  defaults write com.apple.Dock autohide -bool true
   defaults write com.apple.Dock autohide-delay -float 0
   # Reset Launchpad
   rm ~/Library/Application\ Support/Dock/*.db
