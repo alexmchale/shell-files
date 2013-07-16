@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+
 #
 # Configure an OSX system for my preferences.
 #
@@ -151,6 +153,9 @@ if [ "$OS" = "Darwin" ]; then
   defaults write com.apple.QuickTimePlayerX NSQuitAlwaysKeepsWindows -bool false
   defaults write com.google.Chrome NSQuitAlwaysKeepsWindows -bool false
   defaults write com.apple.Terminal NSQuitAlwaysKeepsWindows -bool false
+  # Disable dock auto-hide delay
+  defaults write com.apple.Dock autohide -boolean YES
+  defaults write com.apple.Dock autohide-delay -float 0
   # Reset Launchpad
   rm ~/Library/Application\ Support/Dock/*.db
   # Show the ~/Library folder
@@ -207,13 +212,13 @@ vim +BundleInstall +qall
 
 
 
-# ## Install rbenv ##
-#
-# announce "Installing rbenv"
-#
-# cd ~
-# clone_or_update ".rbenv" "https://github.com/sstephenson/rbenv.git"
-# clone_or_update ".ruby-build" "https://github.com/sstephenson/ruby-build.git"
+## Install rbenv ##
+
+announce "Installing rbenv"
+
+cd ~
+clone_or_update ".rbenv" "https://github.com/sstephenson/rbenv.git"
+clone_or_update ".ruby-build" "https://github.com/sstephenson/ruby-build.git"
 
 
 

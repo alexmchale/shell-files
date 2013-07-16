@@ -106,7 +106,8 @@ function rails {
 
 function precmd {
   export PROMPT="%F{yellow}%~%F{blue}> %F{none}"
-  export RPROMPT="%m $(rprompt_details)"
+  export RPROMPT=""
+  #export RPROMPT="%m $(rprompt_details)"
 }
 
 ### Aliases ###
