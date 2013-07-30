@@ -86,8 +86,7 @@ if [ "$OS" = "Darwin" ]; then
 
   brew_if_missing coreutils
   brew_if_missing wget
-  brew_if_missing mysql
-  brew_if_missing postgresql
+  brew_if_missing git
 
 
   ## Install MacVim ##
