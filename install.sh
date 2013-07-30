@@ -61,7 +61,6 @@ if [ "$OS" = "Darwin" ]; then
   announce "Configuring Xcode"
 
   if [ -d /Applications/Xcode.app ]; then
-    sudo xcodebuild -license
     echo "Xcode is installed!"
     # sudo "/usr/bin/xcode-select" -switch "/Applications/Xcode.app/Contents/Developer"
   else
