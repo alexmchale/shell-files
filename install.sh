@@ -85,6 +85,8 @@ if [ "$OS" = "Darwin" ]; then
   brew_if_missing coreutils
   brew_if_missing wget
   brew_if_missing git
+  brew_if_missing rbenv
+  brew_if_missing ruby-build
 
 
   ## Install MacVim ##
