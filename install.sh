@@ -17,8 +17,6 @@ MACVIM_TBZ="MacVim-snapshot-64"
 MACVIM_URL="http://cloud.github.com/downloads/b4winckler/macvim/$MACVIM_TBZ.tbz"
 OS="`uname -s`"
 
-set -e
-
 
 
 ## Define some useful functions for installation ##
