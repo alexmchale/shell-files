@@ -76,7 +76,7 @@ if [ "$OS" = "Darwin" ]; then
   if [ -x /usr/local/bin/brew ]; then
     brew update
   else
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
   fi
 
 
