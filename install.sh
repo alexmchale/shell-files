@@ -10,12 +10,14 @@
 
 
 
-## Define some constants ##
+## Set up the environment ##
 
 MASTER_URL="https://nodeload.github.com/alexmchale/shell-files/tarball/master"
 MACVIM_TBZ="MacVim-snapshot-64"
 MACVIM_URL="http://cloud.github.com/downloads/b4winckler/macvim/$MACVIM_TBZ.tbz"
 OS="`uname -s`"
+
+set -e
 
 
 
