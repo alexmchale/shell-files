@@ -190,9 +190,9 @@ if [ -d home-dotfiles ]; then
   cd home-dotfiles
 else
   cd /tmp
-  rm -rf alexmchale-shell-files*
-  curl "$MASTER_URL" | tar xz
-  cd alexmchale-shell-files*/home-dotfiles
+  rm -rf shell-files
+  git clone https://github.com/alexmchale/shell-files.git
+  cd shell-files/home-dotfiles
 fi
 
 for file in *; do
